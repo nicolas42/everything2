@@ -1,0 +1,77 @@
+
+<style>
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+
+    * {
+        /* font-size: 20px; */
+        /* line-height: 2; */
+        font-family: Consolas, monaco, monospace;
+        /* letter-spacing: 0.01rem; */
+        /* font-weight: 300; */
+        color: #333;
+
+        background-color: #ffff;
+    }
+
+    body {
+        margin: 0 auto;
+        max-width: 800px;
+    }
+
+    /*
+    div { background-color: #fff; padding: 10px;}
+*/
+
+    video {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    textarea {
+        width: 100%;
+        padding-left: 10px;
+    }
+
+    h1 {
+        font-size: 40px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        background-color: #ddd
+    }
+</style>
+<h1>Events</h1>
+
+<pre></pre>
+<script>
+
+
+
+function stringifyEvent(e) {
+  const obj = {};
+  for (let k in e) {
+    obj[k] = e[k];
+  }
+  return JSON.stringify(obj, (k, v) => {
+    if (v instanceof Node) return 'Node';
+    if (v instanceof Window) return 'Window';
+    return v;
+  }, 4);
+}
+
+
+let view_event = function(e){
+    console.dir(e);
+    document.querySelector('pre').innerHTML = stringifyEvent(e);
+    console.log(stringifyEvent(e));
+
+}
+
+
+
+window.addEventListener("click", view_event);
+window.addEventListener("keydown", view_event);
+
+</script>

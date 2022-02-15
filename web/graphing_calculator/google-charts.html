@@ -1,0 +1,55 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<div id="chart_div" style="width: 2000px; height: 1000px"></div>
+<script>
+
+
+// x_n+1 = rx_n(1-x_n)
+function make_chaos(r)
+{
+    var x = [0.02];
+
+    for ( var i = 0; i < 200 ; i += 1 ){
+        x_n1 = r * x[x.length-1] * ( 1 - x[x.length-1] );
+        x_n1 = Math.max(x_n1, 0);
+        x.push(x_n1);
+    }
+    return x;
+}
+
+var y_points = make_chaos(3.7);
+let dx = 5;
+var x = 0;
+var y = 0;
+var points = [];
+
+for ( var i = 0; i < y_points.length; i += 1 ){
+    points.push([10*i, y_points[i]]);
+}
+
+
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+      data.addColumn('number', 'Chaosy stuff');
+      data.addRows(points);
+
+      var options = {
+        hAxis: {
+          title: 'Time'
+        },
+        vAxis: {
+          title: 'Popularity'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+      chart.draw(data, {});
+    }
+    
+</script>
+

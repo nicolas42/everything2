@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<SCRIPT src="underscore-umd-min-1.13.2.js"></SCRIPT>
+<TITLE>Music Player</TITLE>
+<STYLE>
+* { padding: 0; margin: 0; border: 0; }
+audio, select, option { padding: 1px; margin: 1px; border: 1px solid #eeeeee; color: #111111; font-size: 16px; font-weight: 100; }
+</STYLE>
+<SCRIPT src="data/mp3_files.js">
+// define array mp3_files = [...];
+// It contains all the filenames we want to play.
+</SCRIPT>
+    
+<DIV id="music_player">
+    <SELECT size="2"></SELECT>  <!-- size has to be greater than one or it becomes a dropdown box -->
+    <AUDIO controls><source type="audio/mp3">Sorry, your browser does not support HTML5 audio.</AUDIO>
+</DIV>
+
+<SCRIPT>
+
+// change address bar without changing pages
+// window.history.replaceState( "object or string", "Title", str );
+
+(function(){
+    "use strict";
+
+    // HTML ids automatically become global variables in javascript
+    // let music_player = document.getElementById("music_player");
+    
+    let audio = music_player.querySelector("audio");
+    let select = music_player.querySelector("select");
+
+    // populate the select element with filenames
+    let i;
+    for(i=0;i<mp3_files.length;++i) {
+        let option = document.createElement("option");
+        option.value = mp3_files[i];
+        option.innerHTML = mp3_files[i]; // .split("/").slice(-2).join("/"); // don't show the whole path
+        select.appendChild(option);
+    }
+
+    function play_selected_element(){ 
+        audio.src = select.selectedOptions[0].value; // multiple values can't be clicked so it's weird that the API is like this
+        document.title = select.selectedOptions[0].value.split("/").slice(-1).join("/").toString();
+        audio.play(); 
+    }
+
+    function resize_elements(){
+        let window_height = window.innerHeight - 10; // fudge
+        let window_width  = window.innerWidth - 10; // fudge
+        select.style.height = ( window_height - audio.offsetHeight ).toString()+"px";
+        select.style.width  = window_width.toString()+"px";
+        audio.style.width   = window_width.toString()+"px";
+    }
+
+    // play the selected song on click or on keyboard event
+    select.onchange = play_selected_element; 
+
+    // play the next song when the current one ends
+    audio.onended = function(event){  
+        select.selectedIndex += 1; 
+        play_selected_element(); 
+    };
+
+    window.onresize = _.debounce( function(e) { resize_elements(); }, 100 ); // ignore resize events that occur within 100ms of one another
+
+    resize_elements();
+}());
+
+</SCRIPT>

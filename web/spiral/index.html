@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<STYLE> * { box-sizing: border-box; } </STYLE>
+<script>
+
+function stringify(sth)
+{
+    return JSON.stringify(sth, function(key, val) { return val.toFixed ? Number(val.toFixed(10)) : val; }) // sets numbers to fixed length
+}
+
+function show(canvas, state)
+{
+    // let state.data[state.index] = state.data[state.index];
+
+    // let canvas = canvas.querySelector(".canvas");
+    canvas.width = window.innerWidth - 20;
+    canvas.height = window.innerHeight;
+    let ctx = canvas.getContext('2d');
+    // pre.innerText += JSON.stringify(state.data[state.index]) + '\n';
+
+    // reset all transforms
+    ctx.setTransform();
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.scale(state.data[state.index].scale, state.data[state.index].scale);
+    
+    ctx.strokeStyle = state.data[state.index].color;
+    ctx.lineWidth = state.data[state.index].line_width;
+
+    for (let stroke_length = 0; stroke_length < state.data[state.index].max_distance; stroke_length += 1) {
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, stroke_length);
+        ctx.stroke();
+
+        ctx.translate(0, stroke_length);
+        ctx.rotate(state.data[state.index].angle);
+    }
+
+    if ( state.data[state.index].show_state ) {
+        let angle = 1 / ( state.data[state.index].angle / 2 / Math.PI )
+        // let the_text = '1 / ' + JSON.stringify(angle).slice(0,10) + ' of a rotation';
+        let the_text = stringify(state.data[state.index])
+        ctx.setTransform(); // reset all transforms
+        ctx.fillStyle = "grey";
+        ctx.font = "20px Verdana";
+        ctx.fillText(the_text, 20 , canvas.height - 20);
+    }
+
+    if ( state.animate === 1 && !state.is_moving ) {
+        clearInterval(state.timer_id); // just in case
+        state.timer_id = setInterval( function(){ 
+            state.data[state.index].angle += state.angle_delta; 
+            show(canvas, state); 
+        }, 10 ); 
+        state.is_moving = 1;
+    } 
+    
+    if ( !state.animate && state.is_moving ) {
+        clearInterval(state.timer_id);
+        state.is_moving = 0;
+    }
+
+    // if ( ! state.animate ) { states.push(state); } // canvas.querySelector("pre").innerHTML += ( JSON.stringify(state) + "\n" ); }
+}
+
+
+function make_random_color()
+{
+    return "#" + Math.floor(Math.random() * 16777216).toString(16);
+}
+
+function make_random_angle()
+{
+    return Math.random() * 2 * Math.PI;
+}
+
+// timeoutID is a positive integer
+
+function make_random_pattern()
+{
+    return { 
+        angle: make_random_angle(),
+        color: make_random_color(),
+        max_distance: 500,
+        scale: 1,
+        line_width: 1,
+    }
+}
+
+</script>
+
+
+<style> * { margin: 0; padding: 0; } </style>
+
+<div id="spiral">
+    <canvas class="canvas">click me</canvas>
+    <br>
+    <input class="random" type="button" value="random">
+    <input class="previous" type="button" value="previous">
+    <input class="next" type="button" value="next">
+    <input class="start_stop" type="button" value="start_stop">
+    <input class="reverse_direction" type="button" value="reverse_direction">
+
+    <input class="show_state_checkbox" type="checkbox">
+
+    <input class="angle_slider" type="range" min="1" max="10000" value="5000">
+    <input class="scale_slider" type="range" min="1" max="200" value="100">
+    <input class="max_distance_slider" type="range" min="1" max="2000" value="500">
+    <input class="line_width_slider" type="range" min="1" max="10" value="1">
+    <br>
+    <input class="input" type="text" style="width: 100%;" value="{angle: 2*Math.PI/3, color: '#2ae86f', max_distance: 500, scale: 1, line_width: 1}">
+    <br>
+    <audio controls>
+        <source src="Paul Buckmaster - 12 monkeys-PPHqANTdXJw.opus" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <pre></pre>    
+</div>
+
+<script>
+
+// --------------------
+// Globals
+// --------------------
+let div = document.querySelector("div#spiral");
+let canvas = div.querySelector(".canvas");
+let state = {
+    data: [],
+    index: 0,
+
+    timer_id: 0,
+    animate: 0,
+    is_moving: 0,
+
+    show_state: 0,
+    angle_delta: 1e-5,
+
+};
+
+
+
+
+
+
+function string_to_object(obj){
+    return Function('"use strict";return (' + obj + ')')();
+}
+
+function show_from_string(str)
+{
+    let new_state = string_to_object(str);
+    state.data.push(new_state);
+    state.index = state.data.length-1;
+    show(canvas, state);
+}
+
+function show_random()
+{
+    state.data.push(make_random_pattern());
+    state.index = state.data.length-1;
+    show(canvas, state);
+}
+
+function show_previous() { 
+    state.index -= 1; if ( state.index < 0 ) { state.index = 0; } 
+    show(canvas, state); 
+}
+
+function show_next() { 
+    state.index += 1; 
+    if ( state.index > state.data.length-1 ) { state.index = state.data.length-1; } 
+    show(canvas, state); 
+}
+
+function start_stop() { 
+    if ( state.animate ) { state.animate = 0 } else { state.animate = 1 }
+    show(canvas, state); 
+}
+
+function reverse_direction() { 
+    state.angle_delta = -state.angle_delta;
+    show(canvas, state); 
+}
+
+
+function main()
+{
+    show_random();
+
+    div.querySelector(".input").addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            show_from_string(this.value);
+        }
+    });
+
+
+    canvas.onclick = show_random;
+    div.querySelector(".random").onclick = show_random;
+    div.querySelector(".previous").onclick = show_previous;
+    div.querySelector(".next").onclick = show_next;
+    div.querySelector(".start_stop").onclick = start_stop;
+    div.querySelector(".reverse_direction").onclick = reverse_direction;
+
+    div.querySelector(".angle_slider").oninput = function() { state.data[state.index].angle = this.value / 10000 * 2 * Math.PI; show(canvas, state); }
+    div.querySelector(".max_distance_slider").oninput = function() { state.data[state.index].max_distance = this.value; show(canvas, state); }
+    div.querySelector(".scale_slider").oninput = function() { state.data[state.index].scale = this.value / 100; show(canvas, state); }
+    div.querySelector(".line_width_slider").oninput = function() { state.data[state.index].line_width = this.value; show(canvas, state); }
+    div.querySelector(".show_state_checkbox").oninput = function() { state.data[state.index].show_state = this.checked; show(canvas, state); }
+
+
+}
+
+main();
+
+// state.angle = Math.random() * 2 * Math.PI;
+// state.color = make_random_color();
+
+
+// let audio = spiral.querySelector("audio");
+// if ( audio.paused ) { audio.play(); has_music_started = true; }
+
+// let show_for_the_first_time = function(event) { console.log("one time deal"); show(canvas, state); canvas.removeEventListener("click", show_for_the_first_time ); }
+
+// // Draw "Click Me" text
+// let ctx = canvas.getContext('2d');
+// let the_text = "Click Me";
+// ctx.setTransform(); // reset all transforms
+// ctx.fillStyle = "black";
+// ctx.fillRect(0, 0, canvas.width, canvas.height);
+// ctx.fillStyle = "grey";
+// ctx.font = "60px Verdana";
+// ctx.translate(canvas.width / 2, canvas.height / 2);
+// ctx.fillText(the_text,0,0); // , canvas.width/2, canvas.height/2);
+
+
+
+
+
+
+// function play(audio_element_id)
+// {
+//     let audio_element = document.getElementById(audio_element_id);
+//     audio_element.play();
+// }
+
+// function demo()
+// {
+
+//     audio.play()
+//     state.animate = 1;
+//     show(canvas, state);
+// }
+
+// function play_pause(audio_element_id)
+// {
+//     let audio_element = document.getElementById(audio_element_id);
+//     if ( audio_element.paused ) {
+//         audio_element.play();        
+//     } else {
+//         audio_element.pause();
+//     }
+// }
+
+</script>
+
+</html>
+
+
+

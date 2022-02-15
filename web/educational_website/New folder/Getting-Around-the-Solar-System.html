@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script type="text/javascript" src="js/tools.js"></script>
+        <script src="js/jquery-1.4.2.js"></script>
+        <script src="js/jquery.hotkeys.js"></script>
+		<!-- Call Script This Last -->
+		<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+		
+	</head>
+	<body>
+<div class="inner">
+
+
+		<h1 class="title">
+			<a href="javascript:showHide('nav.container');">&#9776; &nbsp;</a> 
+			Getting Around the Solar System
+		</h1>
+		<nav class="container">
+			<div><a href="index.html">The Elephant and the Balloon</a></div>
+			<div><a href="Orbit.html">Orbit</a></div>
+			<div><a href="Balloon-Technology.html">Balloon Technology</a></div>
+			<div><a href="Elephants.html">Elephants</a></div>
+			<div><a href="Where-to-go.html">Where To Go</a></div>			
+			<div><a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a></div>
+			<div><a href="Space.html">Space</a></div>
+			<div><a href="Gravity.html">Gravity</a></div>
+			<div><a href="Explosions.html">Explosions</a></div>
+		</nav>
+
+<p>It turns out that to get to other planets you need to go really fast as well.  In fact the distances between planets are not measured in km they're measured in speeds.</p>
+<h3>The Rocket Equation</h3>
+<p>The change in velocity that you can achieve is the product of the exhaust velocity and the natural logarithm of the mass ratio, which is the final mass divided by the initial mass.  Here it is in math gobbledygook.</p>
+<p>$$\Delta v = V_e \ln (M_f / M_i)$$</p>
+<p>Rocket people will refer to this as delta-v where delta means change and v means v, I mean velocity.</p>
+<p>The logarithm function causes the relationship to have this shaped curve which indicates that there’s a limit to how fast you can go since speed is on the vertical axis and there's only so much weight you can lose.</p>
+<h3>The Speed (in km/s) of your rocket versus its mass ratio for an exhaust velocity of 3.5km/s</h3>
+<p><img src="images/rocket-equation-graph.jpg" alt="rocket equation graph" /></p>
+<p>This means that if your rocket is 20 times as heavy when it’s full as it is when it’s empty and it’s got good engines then it’ll be able to accelerate to about 10km/s or about 36000 km/h which is about the speed you need to go to get into orbit (taking losses into account)</p>
+<p>Getting a higher mass ratio means trying to get your rocket as light as possible when its empty and still strong enough to go through the atmosphere at thousands of kilometers an hour is what keeps rocket scientists up all night.</p>
+<h1>Subway Map of the Solar System</h1>
+<p><img src="images/subway-map-of-the-solar-system.jpg" alt="subway map of the solar system" /></p>
+<p>The small numbers on the image above are the speeds that are necessary to go to other planets in the solar system.  The little triangles mean you can use the atmosphere to slow down instead of your rocket engines (aerobraking).</p>
+<p>Earth’s delta-v is a bit higher than it is theoretically because whenever a rocket is going straight up none of that speed goes into getting to orbital speed.  Typically a rocket will lose about 1km/s going upward.</p>
+<p>Mars actually looks like its very easy to get to if we are good at aerobraking.  But it’s very hard to aerobrake on Mars.  Mars has a very thin atmosphere and very large mountains to crash into if you make a mistake.  People are trying though.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/00CpItR97zY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<nav class="nav-footer">
+		<a id="prevPage" href="Where-to-go.html"><div class="chevron left"></div></a>
+		<a id="nextPage" href="Space.html"><div class="chevron right"></div></a>
+	</nav>
+
+
+</div><!-- inner -->
+<footer>
+	<a href="Where-to-go.html">Where To Go</a>			
+	<a href="index.html">The Elephant and the Balloon</a>
+	<a href="Balloon-Technology.html">Balloon Technology</a>
+	<a href="Elephants.html">Elephants</a>
+	<a href="Explosions.html">Explosions</a>
+	<a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a>
+	<a href="Gravity.html">Gravity</a>
+	<a href="Orbit.html">Orbit</a>
+	<a href="Space.html">Space</a>
+</footer>
+
+<script>
+	function nextPage() {
+		document.getElementById('nextPage').click();
+	}
+	function prevPage() {
+		document.getElementById('prevPage').click();
+	}
+	$(document).bind('keyup', 'left', prevPage);
+	$(document).bind('keyup', 'right', nextPage);
+	$(document).bind('keyup', 'f', toggleMargins);
+	$(document).bind('keyup', 'm', showHideMenu);
+	$(document).bind('keyup', 'shift+p', prevPage);
+	$(document).bind('keyup', 'shift+n', nextPage);
+</script>
+</body>
+</html>

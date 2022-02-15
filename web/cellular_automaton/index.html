@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="reset.css">
+  <script type="text/javascript" src="rules.js"></script>
+  <script type="text/javascript" src="resize.js"></script>
+  <style>
+    a { color: #33aaff }
+  </style>
+</head>
+<body>
+<p>
+	<p id="RuleNumber"></p>
+	<button type="button" onclick="DrawPrevious()">Previous Image</button>
+	<button type="button" onclick="DrawNext()">Next Image</button>
+	<button type="button" onclick="DrawPreviousInteresting()">Previous Interesting Image</button>
+	<button type="button" onclick="DrawNextInteresting()">Next Interesting Image</button>
+	<button type="button" onclick="fitWidth('CellularAutomaton')">Fit Width</button>
+	<button type="button" onclick="fitHeight('CellularAutomaton')">Fit Height</button>
+</p>
+<img id="CellularAutomaton" />
+</body>
+
+<script>
+function DrawCellularAutomaton( ruleNumber ) {
+
+ rule = Rules[ruleNumber];
+// To Do: 
+// Generalizing to other colors requires that the rule be generated
+// since it's composed of orange and yellow colors now.
+
+// Example of appending a canvas to a document
+// http://stackoverflow.com/questions/22823752/creating-image-from-array-in-javascript-and-html5
+
+ var width = 1000;
+ var height = 500;
+ 
+ col1 = [ 255, 255, 0, 255 ]; // yellow
+ col2 = [ 255, 150,10,255 ]; // orange
+
+ //  Doesn't work without changing Rules
+// col1 = [ 255,255,255,255 ]; // white
+// col2 = [ 0,0,0,255 ]; // black
+
+
+ // create an offscreen canvas
+ var canvas=document.createElement("canvas");
+ var ctx=canvas.getContext("2d");
+
+ // size the canvas to your desired image
+ canvas.width=width;
+ canvas.height=height;
+ 
+ // get the imageData and pixel array from the canvas
+ var imgData=ctx.getImageData(0,0,width, height);
+ var data=imgData.data;
+
+ // Make Yellow Image
+ for (var i = 0; i < data.length; i += 4) {
+  data[i+0] = col1[0];
+  data[i+1] = col1[1];
+  data[i+2] = col1[2];
+  data[i+3] = col1[3];
+ }
+
+ // Put orange dot in middle of first line
+ halfWidth = ((width/2)-1)*4
+ data[halfWidth+0] = col2[0];
+ data[halfWidth+1] = col2[1];
+ data[halfWidth+2] = col2[2];
+ data[halfWidth+3] = col2[3];
+
+ //ctx.putImageData(imgData, 0, 0);
+
+ // Generate Cellular Automaton
+ // Note: There's 4 bytes per pixel and 3 pixels per rule pattern, totalling 12 bytes
+
+ // Rule 30
+ // "111" "110" "101" "100" "011" "010" "001" "000"  
+ //   0     0     0     1     1     1     1     0   
+
+ for (var y = 0; y <= height-1; y+=1 ){
+   for (var x= 0; x <= (4*width)-4; x+=4) {
+  for (var i = 0; i<=rule.length-12; i+=12) {
+   var pos = (4*width*y)+x;
+    if ( 
+    (rule[i+0]===data[pos+0]) && (rule[i+1]===data[pos+1]) && (rule[i+2]===data[pos+2]) && (rule[i+3]===data[pos+3]) 
+    && (rule[i+4]===data[pos+4]) && (rule[i+5]===data[pos+5]) && (rule[i+6]===data[pos+6]) && (rule[i+7]===data[pos+7]) 
+    && (rule[i+8]===data[pos+8]) && (rule[i+9]===data[pos+9]) && (rule[i+10]===data[pos+10]) && (rule[i+11]===data[pos+11])
+    ) {
+   var newPos = pos+(4*width)+4;
+   // orange: 255, 150,10,255 
+   data[newPos+0] = col2[0];
+   data[newPos+1] = col2[1];
+   data[newPos+2] = col2[2];
+   data[newPos+3] = col2[3];
+    }
+  }
+   }
+ }
+ 
+ // put the modified pixels back on the canvas
+ ctx.putImageData(imgData,0,0);
+
+ // create a new img object
+ var image = new Image();
+
+ // set the img.src to the canvas data url
+// image.src=canvas.toDataURL();
+ 
+ // append the new img object to the page
+ // document.body.appendChild(image);
+ // Should do this outside of function
+ 
+// return image;
+
+ return canvas.toDataURL();
+ 
+}
+
+// === Main ===
+var currentRule = 30;
+var cells = []; // Cache of previously generated images
+var InterestingIndex = 0;
+var InterestingRules = [30,45,57,60,67,73,90,91,107,110,124,129,131,135,137,147,150];
+
+function DrawPage(){
+
+	var RuleNumber = document.getElementById("RuleNumber");
+	 RuleNumber.innerHTML = "Rule " + currentRule;
+    // Get image element
+    var img = document.getElementById("CellularAutomaton");
+    // Generate image data if not available in cache
+    if (cells[currentRule] === undefined) {
+     cells[currentRule] = DrawCellularAutomaton(currentRule);
+    }
+    img.src = cells[currentRule];
+    // appendChild() causes the page to scroll down
+    // window.scrollTo(0, 0);
+}
+
+function DrawPrevious() {
+        currentRule -= 1;
+          if ( currentRule < 0) {
+           currentRule = 255;
+          }
+          DrawPage(currentRule);
+}
+
+function DrawNext() {
+   currentRule += 1;
+          if ( currentRule > 255) {
+           currentRule = 0;
+          }
+          DrawPage(currentRule);
+}
+
+
+function DrawNextInteresting() {
+        InterestingIndex += 1;
+		if ( InterestingIndex >= InterestingRules.length ) {
+			InterestingIndex = 0;
+		} 
+		currentRule = InterestingRules[InterestingIndex];
+          if ( currentRule < 0) {
+           currentRule = 255;
+          }
+          DrawPage(currentRule);
+}
+
+function DrawPreviousInteresting() {
+        InterestingIndex -= 1;
+		if ( InterestingIndex < 0 ) {
+			InterestingIndex = InterestingRules.length - 1;
+		} 
+		currentRule = InterestingRules[InterestingIndex];
+          if ( currentRule < 0) {
+           currentRule = 255;
+          }
+          DrawPage(currentRule);
+}
+
+
+
+// If the program is driven by a keydown then the title and document need to be generated initially
+
+DrawPage();
+
+
+
+/* 
+// Keyboard Input
+function myFunction() {
+    var key = event.which;                
+    switch(key) {
+      case 37:
+          // Key left.
+   DrawPrevious();
+          break;
+//    case 38: // Key up. // break;
+      case 39:
+          // Key right.
+   DrawNext();
+          break;
+//     case 40: // Key down. // break;
+    }
+
+}
+window.addEventListener("keydown", myFunction);
+// keydown or keyup? keypress doesn't work.
+// which is the best object to attach to? window, document, document.body ?
+
+*/
+
+
+// var InterestingRules = [30,45,57,60,67,73,90,91,107,110,124,129,131,135,137,147,150];
+
+</script>
+
+</html>

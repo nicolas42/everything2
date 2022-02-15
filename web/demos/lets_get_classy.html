@@ -1,0 +1,31 @@
+<STYLE>
+iframe {width: 400px; height: 400px; }
+* { margin: 0; padding: 0; }
+/* div { display: flex; flex-direction: row; flex-wrap: wrap; }  */
+</STYLE>
+<PRE>
+Lets get classy
+From <a href="https://www.reddit.com/r/reddit.com/comments/ca4bl/time_to_get_classy/">https://www.reddit.com/r/reddit.com/comments/ca4bl/time_to_get_classy/</a>
+</PRE>
+<DIV><button onclick="fullscreen();">full_screen</button></DIV>
+
+<IFRAME id="fire" src="https://www.youtube.com/embed/DIx3aMRDUL4"></IFRAME>
+<IFRAME src="https://www.youtube.com/embed/SDmbGrQqWog"></IFRAME>
+<IFRAME src="https://www.youtube.com/embed/HMnrl0tmd3k"></IFRAME>
+
+<SCRIPT>
+let is_fullscreen = false;
+function fullscreen()
+{
+    let fire = document.getElementById("fire");
+    if ( !is_fullscreen ) {
+        fire.style.width = window.innerWidth;
+        fire.style.height = window.innerHeight;
+        is_fullscreen = true;
+    } else {
+        fire.style.width  = "400px";
+        fire.style.height = "400px";
+        is_fullscreen = false;
+    }
+}
+</SCRIPT>

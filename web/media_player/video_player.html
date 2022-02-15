@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<SCRIPT src="underscore-umd-min-1.13.2.js"></SCRIPT>
+<STYLE>
+* { padding: 0; margin: 0; border: 0; }
+select, option { padding: 1px; margin: 1px; border: 1px solid #eeeeee; color: #111111; font-size: 16px; font-weight: 100; }
+video { background-color: black;}
+</STYLE>
+    
+<DIV id="video_player">
+    <video controls><source type="video/mp4">Your browser does not support the video tag.</video>
+    <SELECT size="2"></SELECT>  <!-- size has to be greater than one or it becomes a dropdown box -->
+</DIV>
+
+<SCRIPT src="data/video_files.js"></SCRIPT>
+
+<SCRIPT>
+
+video_files = video_files.split("\n");
+
+video_files.sort()
+
+// video_files.sort(function(a, b){ 
+//     let item1 = a.split("/").slice(-1).join("/"); 
+//     let item2 = b.split("/").slice(-1).join("/"); 
+
+//     if (item1 < item2) return -1;
+//     if ( item1 > item2) return 1;
+//     return 0;
+// });
+
+// console.log(video_files)
+
+let video = video_player.querySelector("video");
+let select = video_player.querySelector("select");
+
+// populate the select element with filenames
+let i;
+for(i=0;i<video_files.length;++i) {
+    let option = document.createElement("option");
+    option.value = video_files[i];
+    option.innerHTML = video_files[i]; // .split("/").slice(-2).join("/"); // don't show the whole path
+    select.appendChild(option);
+}
+
+function play_selected_element(){ 
+    video.src = select.selectedOptions[0].value; // multiple values can't be clicked so it's weird that the API is like this
+    document.title = select.selectedOptions[0].value.split("/").slice(-1).join("/").toString();
+    video.play(); 
+}
+
+function resize_elements(){
+    let window_height = window.innerHeight;
+    let window_width  = window.innerWidth - 20;
+
+    video.style.height = (1.0*window_height).toString()+"px";
+    video.style.width   = window_width.toString()+"px";
+
+    select.style.height = (0.5*window_height).toString()+"px";
+    select.style.width  = window_width.toString()+"px";
+}
+
+// play the selected song on click or on keyboard event
+select.onchange = play_selected_element; 
+
+// play the next song when the current one ends
+video.onended = function(event){  
+    select.selectedIndex += 1; 
+    play_selected_element(); 
+};
+
+window.onresize = _.debounce( function(e) { resize_elements(); }, 100 ); // ignore resize events that occur within 100ms of one another
+
+resize_elements();
+
+window.onload = function(){ video.focus(); window.scrollTo(0,0); }
+
+</SCRIPT>

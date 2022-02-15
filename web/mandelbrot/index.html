@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<style>
+* { box-sizing: border-box; color: #333; font-weight: 400; }
+textarea { width: 100%; }
+div#contents { margin: 0 auto; max-width: 1000px; border: solid 1px #eeeeee; }
+</style>
+<div id="contents">
+<div id="mandelbrot">
+    <div class="menu">
+        <button class="prev">previous</button>
+        <button class="next">next</button>
+        <button class="reset">reset</button>
+        <button class="fullscreen">toggle_fullscreen</button>
+        <!-- <button class="save">save place</button> -->
+        <button class="goto">go to</button>
+        <input class="input" style="width:100%">
+    </div>
+    <canvas class="canvas"></canvas>
+</div>
+</div>
+
+<script> 
+
+function hue2rgb(p, q, t) {
+    if (t < 0) {
+        t += 1;
+    }
+    if (t > 1) {
+        t -= 1;
+    }
+    if (t < 1 / 6) {
+        return p + (q - p) * 6 * t;
+    }
+    if (t < 1 / 2) {
+        return q;
+    }
+    if (t < 2 / 3) {
+        return p + (q - p) * (2 / 3 - t) * 6;
+    }
+    return p;
+}
+
+function hsl_to_rgb(h, s, l) {
+    let r;
+    let g;
+    let b;
+
+    let q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    let p = 2 * l - q;
+
+    if (s === 0) {
+        r = 1;
+        g = 1;
+        b = 1; // achromatic
+    } else {
+
+        r = hue2rgb(p, q, h + 1 / 3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1 / 3);
+    }
+
+    return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+
+function pixel_coordinates_to_mandelbrot_coordinate(canvas, mandelbrot, x, y)
+{
+    // at a particular zoom level the pixel space is defined to have a particular size in mandelbrot space
+    // the width is 4/zoom and the height is smaller than that in accordance to the aspect ratio
+
+    var aspect_ratio = canvas.width / canvas.height 
+
+    var offset_x = ( x - (canvas.width / 2) ) / ( canvas.width / 2 ) * ( 2 / mandelbrot.zoom );
+    var offset_y = ( y - (canvas.height / 2) ) / ( canvas.height / 2 ) * ( 2 / mandelbrot.zoom ) / aspect_ratio;
+
+    var cx = mandelbrot.x + offset_x;
+    var cy = mandelbrot.y + offset_y;
+
+    return [cx, cy]; 
+}
+
+function draw_mandelbrot(canvas, mandelbrot) {
+
+    var im = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
+
+    // main loop
+    // x and y are the pixel coordinates which starts top left and goes down
+    for (var y = 0; y < im.height; y += 1) {
+        for (var x = 0; x < im.width; x += 1) {
+
+            var cx, cy;
+            [cx, cy] = pixel_coordinates_to_mandelbrot_coordinate(canvas, mandelbrot, x, y);
+
+            var zx = 0;
+            var zy = 0;
+
+            var in_set = true;
+            var num_iterations = 1;
+            for ( ; num_iterations <= mandelbrot.max_iterations; num_iterations += 1 ) {
+                // z = z^2 + c
+                // z = (zx+izy)^2 + (cx+icy) = ((zx)^2 - (zy)^2 + cx) + i(2xy + cy)
+                var zx_temp = zx * zx - zy * zy + cx;
+                zy = 2 * zx * zy + cy;
+                zx = zx_temp;
+                // if the length of complex vector exceeds 4 then assume the pixel is not in the set
+                if (zx * zx + zy * zy > 4) {
+                    in_set = false;
+                    break;
+                }
+            }
+
+            // color in pixel
+            let black = [0, 0, 0, 255];
+            let stride = 4;
+            var pos = (y * im.width * stride) + (x * stride);
+            if (in_set) {
+                im.data[pos + 0] = black[0];
+                im.data[pos + 1] = black[1];
+                im.data[pos + 2] = black[2];
+                im.data[pos + 3] = black[3];
+            } else {
+                // hue is determined by the number of iterations taken
+                var rgb = hsl_to_rgb((num_iterations % 255) / 255, 1, 0.5);
+                im.data[pos + 0] = rgb[0];
+                im.data[pos + 1] = rgb[1];
+                im.data[pos + 2] = rgb[2];
+                im.data[pos + 3] = black[3]; // no opacity
+            }
+
+
+        }
+
+    }
+    canvas.getContext("2d").putImageData(im, 0, 0);
+
+    // return img;
+}
+
+</script>
+
+<script>
+
+
+// alternative to eval
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval
+function looseJsonParse(obj){
+    return Function('"use strict";return (' + obj + ')')();
+}
+
+function main()
+{
+    var div = document.querySelector("#mandelbrot");
+    var canvas = div.querySelector('canvas');
+
+    // let buttons = document.querySelectorAll('button');
+
+    var prev_button = div.querySelector(".prev");
+    var next_button = div.querySelector(".next");
+    var reset_button = div.querySelector(".reset");
+    var fullscreen_button = div.querySelector(".fullscreen");
+    var save_button = div.querySelector(".save");
+    var goto_button = div.querySelector(".goto");
+    var input_field = div.querySelector(".input");
+
+    input_field.value = '{"x":-0.18801757812500003,"y":-0.8209140624999999,"zoom":8192,"max_iterations":1000}';
+
+    var places_index = 0;
+    var places = [
+        // { x: 0, y: 0, zoom: 1, max_iterations: 1000 },
+        { x: -0.6999687500000003, y: -0.2901249999999999, zoom: 1024, max_iterations: 1000 },
+        { x: -0.027285156250000026, y: 0.6443066406250001, zoom: 2048, max_iterations: 1000 },
+        { x: -0.027120712995529206, y: 0.6441158065199851, zoom: 67108864, max_iterations: 1000 },
+        { x: -0.027099643200635935, y: 0.6440290103852749, zoom: 268435456, max_iterations: 1000 },
+        { x: -0.02709963878151032, y: 0.6440290090395138, zoom: 4294967296, max_iterations: 1000 },
+        { x: 0.31923687500000003, y: -0.4990148437499999, zoom: 1024000, max_iterations: 1000 },
+        { x: 0.31923733207893373, y: -0.499014675590515, zoom: 8388608000, max_iterations: 1000 },
+        { x: 0.38715883591593053, y: -0.25874134865963394, zoom: 1073741824, max_iterations: 1000 },
+        { x: 0.1347109374999998, y: -0.6361328125, zoom: 2048, max_iterations: 1000 },
+        { x: 0.2681601562500003, y: -0.004765624999999972, zoom: 4096, max_iterations: 1000 },
+        { x: 0.38715883594200756, y: -0.2587413487062, zoom: 536870912, max_iterations: 1000 },
+        { x: 0.32898730468750015, y: -0.4237490234374998, zoom: 16384, max_iterations: 1000 },
+        { x: -1.7664619022752155, y: 0.041740019425749834, zoom: 1073741824, max_iterations: 1000 },
+        { x: -0.8917554798126222, y: 0.23540426445007326, zoom: 1048576, max_iterations: 1000 },
+        { x: -0.16050877460837365, y: -1.0390565924942496, zoom: 33554432, max_iterations: 1000 },
+        { x: 0.2869768066406246, y: 0.011402801513671967, zoom: 32768, max_iterations: 1000 },
+        { x: 0.3618167114257812, y: -0.6025224914550779, zoom: 262144, max_iterations: 1000 },
+        {"x":-0.11343920898437498,"y":-0.8826583251953125,"zoom":32768,"max_iterations":1000},
+        {"x":0.3618113804276967,"y":-0.6025235319523451,"zoom":16777216,"max_iterations":2000},
+        {"x":-0.18801757812500003,"y":-0.8209140624999999,"zoom":8192,"max_iterations":1000},
+    ];
+
+
+    // var mandelbrot = places[places_index];
+    var fullscreen = 0;
+    var width = 400;
+    var height = 400;
+    // mandelbrot = load_object_from_url(mandelbrot);
+    
+    canvas.width = width;
+    canvas.height = height;
+
+    draw_mandelbrot(canvas, places[places_index]);
+
+
+    canvas.addEventListener("contextmenu", function (event) 
+    { 
+        event.preventDefault() 
+    });
+
+    // left click zooms in right click zooms out
+    canvas.addEventListener("mousedown",  function(event)
+    {   
+        // get position of clicked mouse cursor
+        var rect = event.currentTarget.getBoundingClientRect();
+        var x = event.clientX - rect.left;
+        var y = event.clientY - rect.top;
+
+        console.log(x,y);
+        x = x * canvas.width / rect.width;
+        y = y * canvas.height / rect.height;
+        [ places[places_index].x, places[places_index].y ] = pixel_coordinates_to_mandelbrot_coordinate(canvas, places[places_index], x, y);
+
+        if (event.which === 1) {
+            places[places_index].zoom *= 2;
+        } else if (event.which === 3) {
+            places[places_index].zoom /= 2;
+        }
+        
+        input_field.value = JSON.stringify(places[places_index]);
+        draw_mandelbrot(canvas, places[places_index]);
+    });
+
+
+    prev_button.addEventListener("click", function(event)
+    { 
+        places_index -= 1; 
+        console.log(places[places_index]);
+        if ( places_index < 0 ) {
+            places_index = places.length-1;
+        }
+        input_field.value = JSON.stringify(places[places_index]);
+        draw_mandelbrot(canvas, places[places_index]);
+    });
+
+    next_button.addEventListener("click", function(event)
+    { 
+        places_index += 1; 
+        console.log(places[places_index]);
+        if ( places_index > places.length-1 ) {
+            places_index = 0;
+        }
+        input_field.value = JSON.stringify(places[places_index]);
+        draw_mandelbrot(canvas, places[places_index]);
+    });
+
+    reset_button.addEventListener("click", function(event)
+    { 
+        places_index = 0
+        input_field.value = JSON.stringify(places[places_index]);
+        draw_mandelbrot(canvas, places[places_index])
+    });
+
+    fullscreen_button.addEventListener("click", function(event)
+    { 
+        fullscreen = !fullscreen; 
+        // console.log( fullscreen ); 
+        if ( fullscreen ) {
+            canvas.width = 1000 - 20;
+            canvas.height = 1000 - 20;
+        } else {
+            canvas.width = width;
+            canvas.height = height;
+        }
+        input_field.value = JSON.stringify(places[places_index]);
+        draw_mandelbrot(canvas, places[places_index]);
+    });
+
+    // save_button.addEventListener("click", function(event)
+    // { 
+    //     places.push(places[places_index]);
+    //     console.log(places[places_index])
+    //     var monospace_text = document.createElement("pre");
+    //     monospace_text.innerText = JSON.stringify(places[places_index]);
+    //     document.body.appendChild(monospace_text);
+    // });
+
+    goto_button.addEventListener("click", function(event)
+    { 
+        var here = looseJsonParse(input_field.value)
+        places.push(here);
+        places_index = places.length-1;
+
+        input_field.value = JSON.stringify(places[places_index]);
+        draw_mandelbrot(canvas, here);
+
+    });
+
+}
+
+main();
+
+</script>
+

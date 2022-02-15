@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script type="text/javascript" src="js/tools.js"></script>
+        <script src="js/jquery-1.4.2.js"></script>
+        <script src="js/jquery.hotkeys.js"></script>
+		
+	</head>
+	<body>
+<div class="inner">
+
+		<h1 class="title">
+			<a href="javascript:showHide('nav.container');">&#9776; &nbsp;</a> 
+			Elephants
+		</h1>
+		<nav class="container">
+			<div><a href="index.html">The Elephant and the Balloon</a></div>
+			<div><a href="Orbit.html">Orbit</a></div>
+			<div><a href="Balloon-Technology.html">Balloon Technology</a></div>
+			<div><a href="Elephants.html">Elephants</a></div>
+			<div><a href="Where-to-go.html">Where To Go</a></div>			
+			<div><a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a></div>
+			<div><a href="Space.html">Space</a></div>
+			<div><a href="Gravity.html">Gravity</a></div>
+			<div><a href="Explosions.html">Explosions</a></div>
+		</nav>
+	
+		<p>The elephant technique is the main alternative to balloon technology for getting into orbit.</p>
+
+		<p><img class="small-image" src="images/image1.jpg" alt="elephant spinning a crocodile from The Enormous Crocodile by Roald Dahl" /></p>
+		<p><img class="small-image" src="images/image11.jpg" alt="elephant spinning a crocodile from The Enormous Crocodile by Roald Dahl" /></p>
+		<p><img class="small-image" src="images/image2.jpg" alt="elephant spinning a crocodile from The Enormous Crocodile by Roald Dahl" /></p>
+
+		<p>credit: "<a href="https://www.amazon.com/Enormous-Crocodile-Roald-Dahl/dp/0141323752">The Enormous Crocodile by Roald Dahl</a>"</p>
+
+
+		<p>This technique is not as widely used as you might imagine but the principle is sound.  Give a large enough elephant these things are possible as long as he swings you fast enough and lets you go at the right time.</p>
+
+		<p><img class="small-image" src="images/image6.jpg" alt="elephant spinning a crocodile from The Enormous Crocodile by Roald Dahl" /></p>
+
+		<p>(Caution: Math) If we assume a circumference of the crocodile elephant system of about 10m and give ourselves some wiggle room on orbital velocity (say 10km/s) we find that the elephant would have to spin the crocodile around about a million times per second.  Don't give me that look ... we just need a bigger elephant.</p>
+
+		<p><img class="small-image" src="images/image7.jpg" alt="elephant spinning a crocodile from The Enormous Crocodile by Roald Dahl" /></p>
+
+		<p>Newton once outlined this idea in a book of his as he was busy inventing gravity. He didn't know about elephants so he opted to use a cannon instead, on the top of a mountain. Personally I prefer the idea of launch by elephant.</p>
+		
+		<p><img class="small-image" src="images/newton.jpg" alt="Figure: Going fast enough sideways from the top of a mountain by Isaac Newton" /></p>
+	
+		<p>Figure: Going fast enough sideways from the top of a mountain by Isaac Newton</p>
+		
+		<p>But It turns out that even a really big cannon will only get you most of the way there so you’ll need some balloon technology to give you that extra kick at the end.  Also once you’re in orbit you’ll need balloon technology to get anywhere else.  Also rotating that fast in the atmosphere would disintegrates most things. So it turns out that balloon technology really is the way to go.</p>
+		
+		<p>So balloons are the way to go into space.  Where should we go?</p>
+
+<nav class="nav-footer">
+		<a id="prevPage" href="Balloon-Technology.html"><div class="chevron left"></div></a>
+		<a id="nextPage" href="Where-to-go.html"><div class="chevron right"></div></a>
+	</nav>
+
+
+</div><!-- inner -->
+<footer>
+	<a href="Where-to-go.html">Where To Go</a>			
+	<a href="index.html">The Elephant and the Balloon</a>
+	<a href="Balloon-Technology.html">Balloon Technology</a>
+	<a href="Elephants.html">Elephants</a>
+	<a href="Explosions.html">Explosions</a>
+	<a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a>
+	<a href="Gravity.html">Gravity</a>
+	<a href="Orbit.html">Orbit</a>
+	<a href="Space.html">Space</a>
+</footer>
+
+<script>
+	function nextPage() {
+		document.getElementById('nextPage').click();
+	}
+	function prevPage() {
+		document.getElementById('prevPage').click();
+	}
+	$(document).bind('keyup', 'left', prevPage);
+	$(document).bind('keyup', 'right', nextPage);
+	$(document).bind('keyup', 'f', toggleMargins);
+	$(document).bind('keyup', 'm', showHideMenu);
+	$(document).bind('keyup', 'shift+p', prevPage);
+	$(document).bind('keyup', 'shift+n', nextPage);
+</script>
+</body>
+</html>

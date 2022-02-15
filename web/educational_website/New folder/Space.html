@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script type="text/javascript" src="js/tools.js"></script>
+        <script src="js/jquery-1.4.2.js"></script>
+        <script src="js/jquery.hotkeys.js"></script>
+		
+	</head>
+	<body>
+<div class="inner">
+
+
+		<h1 class="title">
+			<a href="javascript:showHide('nav.container');">&#9776; &nbsp;</a> 
+			Space
+		</h1>
+		<nav class="container">
+			<div><a href="index.html">The Elephant and the Balloon</a></div>
+			<div><a href="Orbit.html">Orbit</a></div>
+			<div><a href="Balloon-Technology.html">Balloon Technology</a></div>
+			<div><a href="Elephants.html">Elephants</a></div>
+			<div><a href="Where-to-go.html">Where To Go</a></div>			
+			<div><a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a></div>
+			<div><a href="Space.html">Space</a></div>
+			<div><a href="Gravity.html">Gravity</a></div>
+			<div><a href="Explosions.html">Explosions</a></div>
+		</nav>
+
+		<p>Space is where you put things.  For instance you'd say "There's a space to put that couch!" but you wouldn't say that if there already was a couch there.  Outer space is mostly the same - there's no couches and also no air.  It would be embarrassing to try to breath in space so don't try.</p>
+
+<p>People who study space say it's very complicated and start using words like virtual particle.  But in space travel the hardest thing is simply how far away everything is.</p>
+
+<blockquote>
+  <p><em>"Space is big. You just won't believe how vastly, hugely, mind-bogglingly big it is. I mean, you may think it's a long way down the road to the chemist's, but that's just peanuts to space." - Douglas Adams</em></p>
+</blockquote>
+
+<h1 id="thetemperatureofspace">The Temperature of Space</h1>
+
+<p>People are sometimes told that space is extremely cold which is misleading.  There's almost nothing in space which means it's not that cold.  It's the difference between putting your hand in boiling water vs putting your hand in the oven when it's 100 degrees.  The water is going to be much worse because there's much more stuff in the water than in the oven.  Similarly there's almost no atoms in space (which you could probably work out from the name) so there's nothing to steal your thermal energy and make you feel cold.  So it wouldn't really feel that cold.  But if your naked skin is feeling space directly then you're probably already in trouble.</p>
+
+<blockquote>
+<p><em>"It’s impressive what nothing can do to a man." - Jayne, Firefly</em></p>
+</blockquote>
+
+<p>Vacuum (emptiness) can cause all kinds of grief.  Because your atoms are bouncing around all the time they will spreads as soon if they can like a fat guy on a King sized bed in an expensive hotel suite.  Although air seems quite thin there's more than a million million million million atoms in your room bouncing against each other and on you at the moment which keep your mischievous liquids from escaping (boiling off).  There's even air molecules in your mouth keeping the saliva on your tongue in check.</p>
+
+<pre><code>6e24 / 24.5
+== 2.45e23 # molecules per litre normally
+</code></pre>
+
+<p>Because you're so much warmer and denser than the atoms in space, the liquids you're made of will actually boil off in space which will cause you to have a bad day.</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3GG9ApFyBms" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>This video doesn't make my point but it's cool.</p>
+
+<h2 id="blackholes">Black Holes</h2>
+
+<p>Apparently black holes do exist now and we are all doomed eventually to enjoy living with and eventually in them by the time the universe ends.  So I for one have decided to try to relate to my spatially challenged brethren by finding out just how small I’d have to become become one of them. What followed might surprise or bore you. </p>
+
+<p>Long story short - I would need to be squeezed to about the size of a proton. So no good news there.  The Earth would need to be squeezed to the size of a peanut.  Our sun would need to be mushed into a region the size of Manhattan. </p>
+
+<p>Black holes can get startlingly large which is illustrated beautifully in this video.</p>
+
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/QgNDao7m41M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+<nav class="nav-footer">
+		<a id="prevPage" href="Getting-Around-the-Solar-System.html"><div class="chevron left"></div></a>
+		<a id="nextPage" href="Gravity.html"><div class="chevron right"></div></a>
+	</nav>
+
+
+</div><!-- inner -->
+<footer>
+	<a href="Where-to-go.html">Where To Go</a>			
+	<a href="index.html">The Elephant and the Balloon</a>
+	<a href="Balloon-Technology.html">Balloon Technology</a>
+	<a href="Elephants.html">Elephants</a>
+	<a href="Explosions.html">Explosions</a>
+	<a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a>
+	<a href="Gravity.html">Gravity</a>
+	<a href="Orbit.html">Orbit</a>
+	<a href="Space.html">Space</a>
+</footer>
+
+<script>
+	function nextPage() {
+		document.getElementById('nextPage').click();
+	}
+	function prevPage() {
+		document.getElementById('prevPage').click();
+	}
+	$(document).bind('keyup', 'left', prevPage);
+	$(document).bind('keyup', 'right', nextPage);
+	$(document).bind('keyup', 'f', toggleMargins);
+	$(document).bind('keyup', 'm', showHideMenu);
+	$(document).bind('keyup', 'shift+p', prevPage);
+	$(document).bind('keyup', 'shift+n', nextPage);
+</script>
+</body>
+</html>

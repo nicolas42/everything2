@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!-- ganja_reflections_in_geometric_algebra -->
+<HEAD>
+  <SCRIPT SRC="ganja.js"></SCRIPT>
+</HEAD>
+<BODY>
+<PRE>
+Geometric algebra is some math.
+
+It's basically regular vector mathematics but the basic operation is just multiplication rather than the dot product and cross product.
+This makes it work better but there are a bunch of higher dimensional objects that hang around like bivectors and trivectors and so on.
+
+Also it can have dimensions with zero magnitude which are useful in describing translations.
+
+Exponentiating  a vector that has zero magnitude yields a result that is 1+a in the taylor expansion.  
+This means that multiplying by the exponential of a zero vector returns the original vector plus a scaled version of itself?
+
+Notes
+~ reverse product (conjugate)
+! dual (multiply by pseudoscalar)
+
+
+</PRE>
+    
+<SCRIPT>
+   
+
+
+// Create a Clifford Algebra with 2,0,1 metric. 
+Algebra(2,0,1,()=>{
+  
+
+    var line = (a,b,c)=>a*1e1 + b*1e2 + c*1e0;
+    var point = (x,y)=>!(1e0 + x*1e1 + y*1e2);  
+    var line2 = (a,b,c,d)=> point(a,b) & point(c,d);
+    var a = point(0,0.5), b = point(0.5,0.5), c = point(1,1.5); 
+    var p = [a,b,c];
+    var l = line2(2,0,3,0);
+    var l2 = line2(2,0,3,1.8);
+  
+    var println = (a)=>  console.log((a).toString()+"\n");
+    var join = (a,b)=>a&b;
+    var meet = (a,b)=>a^b;
+  
+  
+    
+    document.body.appendChild(this.graph([
+      // "Drag A,B,C",   // First label is used as title.
+      0x000088,
+      
+      1e0,
+
+      p,"p",l,"l",
+      l2,"l2",
+      0x222222,
+      l*p*l,
+      0x000088,
+      l2*l*p*l*l2,"p'",
+      ~(l*l2)*p*(l*l2),"pomg", // ~ reverses stuff
+  
+      meet(l,l2),"meet(l,l2)",
+      point(1,1), point(0,1.5),
+      join(point(1,1), point(0,1.5)),
+      
+    ],{
+      grid        : true, // Display a grid
+      labels      : true, // Label the grid
+      lineWidth   : 3,    // Custom lineWidth (default=1)
+      pointRadius : 1,    // Custon point radius (default=1)
+      fontSize    : 1,    // Custom font size (default=1)
+      scale       : .5,    // Custom scale (default=1), mousewheel.
+    }));
+    
+  });
+  
+
+Algebra(2,0,1,()=>{
+
+    // Direct specification of basis blades using e-notation.
+    var xy_bivector = 1e12,
+        pseudoscalar = 1e012;
+    
+    // Operator overloading .. * = geometric product, ^ = wedge, & = vee, << = dot, >>> = sandwich ... 
+    var xy_bivector_from_product = 1e1 * 1e2;
+    
+    // Directly specified point.
+    var some_point = 1e12 + 0.4e01 + 0.5e02;  
+    
+    // Function that returns point.
+    var function_that_returns_point = ()=>some_point + 0.5e01;
+    
+    // Join of point and function .. notice no calling brackets .. 
+    var join_between_point_and_function = some_point & function_that_returns_point;
+    
+    // Same line as above.. but as function.. (so will update if the point changes)
+    var function_that_returns_join = ()=>some_point & function_that_returns_point;
+    
+    // Binary operations on arrays also work as expected.
+    var even = [1,2,3,4,5]*2;
+    
+    // Even if those contain multivectors or other arrays : 
+    var funky = [1, 1e01+0.5e02, [3,4]] * 3 + [1,2,3];
+    
+    // All elements and functions can be rendered directly. (again, no calling brackets). 
+    var canvas = this.graph([ some_point, function_that_returns_point, function_that_returns_join ]);
+
+
+    
+    document.body.appendChild(canvas);
+    
+    });
+    
+    
+</SCRIPT></BODY>

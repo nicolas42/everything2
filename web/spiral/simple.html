@@ -1,0 +1,114 @@
+<!-- 
+credit https://slicker.me/javascript/turtle.htm
+canvas ref https://www.w3schools.com/tags/ref_canvas.asp
+
+To reset transforms caused by translate and rotate use setTransform.
+Calling ctx.setTransform without any parameters will reset all of the previous transformations.
+settransform https://www.w3schools.com/tags/canvas_settransform.asp
+
+
+{ "angle": 4.189447708568463, "color": "#fc8a38", "max_distance": 500, "scale": 1, "line_width": 2, "step": 1 }
+
+
+-->
+
+<html>
+    <head><style> body { max-width: 800px; }; </style></head>
+<body>
+<canvas></canvas>
+<input type="checkbox" checked>random color</input>
+<input  id="angle_slider" style="width:800px" type="range" min="1" max="10000" value="5000">
+<input  id="scale_slider" style="width:800px" type="range" min="1" max="200" value="100">
+<input  id="max_distance_slider" style="width:800px" type="range" min="1" max="1000" value="500">
+<p></p>
+<script>
+
+function show_pattern(canv, spiral)
+{
+    
+
+    let ctx = canv.getContext('2d');
+
+    ctx.setTransform(); // reset all transforms
+
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canv.width, canv.height);
+
+    ctx.translate(canv.width / 2, canv.height / 2);
+    ctx.scale(spiral.scale, spiral.scale);
+
+    for (let distance = 0; distance < spiral.max_distance; distance += 1) {
+        ctx.strokeStyle = spiral.color;
+        ctx.lineWidth = spiral.line_width;
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, distance);
+        ctx.stroke();
+
+        ctx.translate(0, distance);
+        ctx.rotate(spiral.angle);
+    }
+}
+
+function make_random_color()
+{
+    return "#" + Math.floor(Math.random() * 16777216).toString(16);
+}
+
+
+
+
+// ============== Globals ==================
+var canvas = document.querySelector('canvas');
+canvas.width = 800;
+canvas.height = 800;
+
+document.getElementById("angle_slider").focus();
+
+var pattern = { 
+    angle: Math.random() * 2 * Math.PI,
+    color: make_random_color(),
+    max_distance: 500,
+    scale: 1,
+    line_width: 1,
+    step: 1
+}
+
+
+function show_with_random_color()
+{
+    if (document.querySelector('input').checked){ pattern.color = make_random_color(); }
+    show_pattern(canvas, pattern);
+    document.querySelector('p').innerHTML = JSON.stringify(pattern, null, 4)
+}
+
+show_with_random_color();
+
+
+canvas.onwheel = function(event)
+{
+    event.preventDefault();
+    pattern.angle += event.deltaY / 1000000 * 2 * Math.PI;
+    show_with_random_color();
+}
+
+
+document.querySelector("#angle_slider").oninput = function () {
+    pattern.angle = this.value / 10000 * 2 * Math.PI;
+    show_with_random_color();}
+
+
+document.querySelector("#scale_slider").oninput = function () {
+    pattern.scale = this.value / 100;
+    show_with_random_color();}
+
+
+document.querySelector("#max_distance_slider").oninput = function () {
+    pattern.max_distance = this.value;
+    show_with_random_color();}
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<LINK rel="stylesheet" href="../css/reset.css">
+
+<!-- <STYLE> * { box-size: border-box; margin: 3px; padding: 3px; border: 1px solid #eeeeee; } </STYLE> -->
+
+<DIV id="content">
+    <DIV>
+        <!-- Buttons These have hotkeys (or accesskeys) associated with them	-->
+        <button accesskey="1" onclick="resize(1/10)"><u>1</u>/10 Size</button>
+        <button accesskey="2" onclick="resize(2/10)"><u>2</u>/10 Size</button>
+        <button accesskey="3" onclick="resize(3/10)"><u>3</u>/10 Size</button>
+        <button accesskey="4" onclick="resize(4/10)"><u>4</u>/10 Size</button>
+        <button accesskey="5" onclick="resize(5/10)"><u>5</u>/10 Size</button>
+        <button accesskey="6" onclick="resize(6/10)"><u>6</u>/10 Size</button>
+        <button accesskey="7" onclick="resize(7/10)"><u>7</u>/10 Size</button>
+        <button accesskey="8" onclick="resize(8/10)"><u>8</u>/10 Size</button>
+        <button accesskey="9" onclick="resize(9/10)"><u>9</u>/10 Size</button>
+        <button accesskey="0" onclick="resize(1)"><u>0</u>riginal Size</button>
+
+        <button accesskey="f" onclick="fit()"> <u>F</u>it </button>
+
+        Use hotkeys with ctrl+alt+(underlined letter)
+        <a href="https://www.w3schools.com/tags/att_global_accesskey.asp"> [more info]</a>	
+    </DIV>
+        
+    <IMG src="https://www.publicdomainpictures.net/pictures/310000/velka/sonnenblumenfeld-bluten-himmel.jpg" />
+</DIV>
+
+
+<SCRIPT>
+
+
+function fit(){
+    img = content.querySelector("img");
+    let scaler = Math.min( window.innerWidth / img.naturalWidth, window.innerHeight / img.naturalHeight );
+    img.width = img.naturalWidth * scaler;
+    img.height = img.naturalHeight * scaler;
+}
+
+function resize(scale){
+    
+    img = content.querySelector("img");
+    img.height = img.naturalHeight * scale;
+    img.width = img.naturalWidth * scale;
+}
+
+
+function show_hide(id){
+    // The display attribute must be initialized to "none" or "block" to work properly
+
+    it = document.getElementById(id);
+    if (it.style.display === "block"){
+        it.style.display = "none";
+    } else {
+        it.style.display = "block";
+    }
+}
+
+
+
+</SCRIPT>
+

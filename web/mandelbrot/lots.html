@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<STYLE>
+div#mandelbrots { display: flex; flex-direction: row; flex-wrap: wrap; } 
+div.item { display: flex; flex-direction: column; } 
+</STYLE>
+<BODY>
+<p>Left click zooms in right click zooms out</p>
+<DIV id="mandelbrots">
+</DIV>
+</BODY>
+<SCRIPT src="draw_mandelbrot.js"></SCRIPT>
+<SCRIPT async defer>
+
+// alternative to eval - looseJsonParse
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval
+function eval(obj)
+{
+    return Function('"use strict";return (' + obj + ')')();
+}
+
+function stringify(sth)
+{
+    // let set_numbers_to_fixed_length = function(key, val) { return val.toFixed ? Number(val.toFixed(10)) : val; }
+    let str = JSON.stringify(sth)
+    str = str.replaceAll(",", ", "); // put in spaces
+    return str;
+
+}
+
+function main()
+{
+
+    let places = [
+        // { x: 0, y: 0, zoom: 1, max_iterations: 1000 },
+        { x: -0.6999687500000003, y: -0.2901249999999999, zoom: 1024, max_iterations: 1000 },
+        { x: -0.02709963878151032, y: 0.6440290090395138, zoom: 4294967296, max_iterations: 1000 },
+        {"x":0.13578231565821836, "y":0.6013344946709193, "zoom":549755813888, "max_iterations":1000},
+        { x: 0.31923687500000003, y: -0.4990148437499999, zoom: 1024000, max_iterations: 1000 },
+        { x: 0.31923733207893373, y: -0.499014675590515, zoom: 8388608000, max_iterations: 1000 },
+        { x: 0.1347109374999998, y: -0.6361328125, zoom: 2048, max_iterations: 1000 },
+        { x: 0.2681601562500003, y: -0.004765624999999972, zoom: 4096, max_iterations: 1000 },
+        { x: 0.38715883594200756, y: -0.2587413487062, zoom: 536870912, max_iterations: 1000 },
+        { x: 0.32898730468750015, y: -0.4237490234374998, zoom: 16384, max_iterations: 1000 },
+        { x: -1.7664619022752155, y: 0.041740019425749834, zoom: 1073741824, max_iterations: 1000 },
+        { x: -0.8917554798126222, y: 0.23540426445007326, zoom: 1048576, max_iterations: 1000 },
+        { x: -0.16050877460837365, y: -1.0390565924942496, zoom: 33554432, max_iterations: 1000 },
+        { x: 0.2869768066406246, y: 0.011402801513671967, zoom: 32768, max_iterations: 1000 },
+        { x: 0.3618167114257812, y: -0.6025224914550779, zoom: 262144, max_iterations: 1000 },
+        {"x":-0.11343920898437498,"y":-0.8826583251953125,"zoom":32768,"max_iterations":1000},
+        {"x":0.3618113804276967,"y":-0.6025235319523451,"zoom":16777216,"max_iterations":2000},
+        {"x":-0.18801757812500003,"y":-0.8209140624999999,"zoom":8192,"max_iterations":1000},
+        {"x":0.36181762695312497, "y":-0.6025216218233105, "zoom":33554432, "max_iterations":1000},
+    ];
+
+    let mandelbrots = document.getElementById("mandelbrots");
+
+    for(let i=0; i<places.length;++i) {
+        let div = document.createElement("div");
+        div.className = "item";
+        let canvas = document.createElement("canvas");
+        let textarea = document.createElement("textarea");
+        div.appendChild(canvas);
+        div.appendChild(textarea);
+
+        textarea.style.width = "400px";
+        textarea.style.height = "50px";
+        canvas.width = 400;
+        canvas.height = 400;
+        canvas.dataset.mandelbrot = stringify(places[i]);
+        draw_mandelbrot(canvas, places[i]);
+        textarea.innerText = stringify(places[i]);
+
+
+        canvas.addEventListener("contextmenu", function (event) 
+        { 
+            event.preventDefault() 
+        });
+
+        // left click zooms in right click zooms out
+        canvas.addEventListener("mousedown",  function(event)
+        {   
+            // get position of clicked mouse cursor
+            var rect = event.currentTarget.getBoundingClientRect();
+            var x = event.clientX - rect.left;
+            var y = event.clientY - rect.top;
+
+            let place = eval(canvas.dataset.mandelbrot)
+            if (place) {
+                [ place.x, place.y ] = pixel_coordinates_to_mandelbrot_coordinate(canvas, place, x, y);
+
+                if (event.which === 1) {
+                    place.zoom *= 2;
+                } else if (event.which === 3) {
+                    place.zoom /= 2;
+                }
+                
+                // input_field.value = JSON.stringify(place);
+                draw_mandelbrot(canvas, place);
+
+                canvas.dataset.mandelbrot = stringify(place);
+                textarea.innerText = stringify(place);
+            }
+
+        });
+        mandelbrots.appendChild(div);
+    }
+}
+
+main();
+
+</SCRIPT>
+

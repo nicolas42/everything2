@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script type="text/javascript" src="js/tools.js"></script>
+        <script src="js/jquery-1.4.2.js"></script>
+        <script src="js/jquery.hotkeys.js"></script>
+		
+	</head>
+	<body>
+<div class="inner">
+
+
+
+		<h1 class="title">
+				<a href="javascript:showHide('nav.container');">&#9776; &nbsp;</a> 
+				Balloon Technology
+			</h1>
+	<nav class="container">
+		<div><a href="index.html">The Elephant and the Balloon</a></div>
+		<div><a href="Orbit.html">Orbit</a></div>
+		<div><a href="Balloon-Technology.html">Balloon Technology</a></div>
+		<div><a href="Elephants.html">Elephants</a></div>
+		<div><a href="Where-to-go.html">Where To Go</a></div>			
+		<div><a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a></div>
+		<div><a href="Space.html">Space</a></div>
+		<div><a href="Gravity.html">Gravity</a></div>
+		<div><a href="Explosions.html">Explosions</a></div>
+	</nav>
+
+<p>One of the options for getting into space is to use balloons.  </p>
+
+<p>	The balloon option works about how you'd expect. You blow up a balloon and then you let it go and the balloon makes that farting noise as it jets off around the room. As unlikely as it may seem the balloon option is the most popular way to get into space at the moment.</p>
+
+<p>Nobody has made a balloon which will fly fast enough to get into orbit.  Balloons also run out of air quickly, they can pop, and also they reduce in size which would make flying in them cramped.  So we had to get something else. Explosions! </p>
+
+<p>Yes the only way people have found to get into space is by sitting on-top of explosions.  Not a short explosion like you're used to but one that lasts for minutes.  There's many problems with this like if you sit on an explosion won't you explode?  And how do I keep an explosion going once it's exploded? </p>
+
+<p>For the time being you can think of a more practical incarnation of balloon technology as a giant, very powerful spray can.  It's pressurized, made of metal, and has a single button it will eject fast moving gases out of the back like the balloon.  If you're a miscreant you sometimes ignite these gases (please don't). I know that spray cans don't fly around the room but just go with me on this.</p>
+			
+<nav class="nav-footer">
+		<a id="prevPage" href="Orbit.html"><div class="chevron left"></div></a>
+		<a id="nextPage" href="Elephants.html"><div class="chevron right"></div></a>
+	</nav>
+
+
+</div><!-- inner -->
+<footer>
+	<a href="Where-to-go.html">Where To Go</a>			
+	<a href="index.html">The Elephant and the Balloon</a>
+	<a href="Balloon-Technology.html">Balloon Technology</a>
+	<a href="Elephants.html">Elephants</a>
+	<a href="Explosions.html">Explosions</a>
+	<a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a>
+	<a href="Gravity.html">Gravity</a>
+	<a href="Orbit.html">Orbit</a>
+	<a href="Space.html">Space</a>
+</footer>
+
+<script>
+	function nextPage() {
+		document.getElementById('nextPage').click();
+	}
+	function prevPage() {
+		document.getElementById('prevPage').click();
+	}
+	$(document).bind('keyup', 'left', prevPage);
+	$(document).bind('keyup', 'right', nextPage);
+	$(document).bind('keyup', 'f', toggleMargins);
+	$(document).bind('keyup', 'm', showHideMenu);
+	$(document).bind('keyup', 'shift+p', prevPage);
+	$(document).bind('keyup', 'shift+n', nextPage);
+</script>
+</body>
+</html>

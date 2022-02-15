@@ -1,0 +1,133 @@
+<!-- https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage -->
+
+<div>
+<button id="zoom_in">zoom in</button>
+<button id="zoom_out">zoom out</button>
+<canvas></canvas>
+</div>
+
+<script>
+
+
+function draw_image_scaled(canvas, image, image_scale) {
+    var w = image.naturalWidth * image_scale;
+    var h = image.naturalHeight * image_scale;
+    canvas.getContext('2d').drawImage(image, 0, 0, w, h );
+}
+
+function calculate_scale_to_fit_in_window(image) {
+
+    // get the size that will fit the image snugly within the window.
+    const image_aspect_ratio = image.naturalWidth / image.naturalHeight;
+    const window_aspect_ratio = window.innerWidth / window.innerHeight;
+
+    if ( image_aspect_ratio < window_aspect_ratio ) {
+        // fit height
+        var h = window.innerHeight;
+        var w = window.innerHeight / image_aspect_ratio;
+
+    } else {
+        // fit width
+        var w = window.innerWidth;
+        var h = window.innerWidth * image_aspect_ratio;
+
+    }
+    
+    var scale = w / image.naturalWidth;
+    return scale;
+}
+
+
+function main()
+{
+
+    var canvas = document.querySelector('canvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    var image = new Image();
+    image.src = "https://upload.wikimedia.org/wikipedia/commons/4/40/The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg"; // 'images/The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg';
+    var image_scale = 1;
+    
+    window.addEventListener("load", function(event){
+        
+        image_scale = calculate_scale_to_fit_in_window(image);
+        draw_image_scaled(canvas, image, image_scale);
+
+        canvas.addEventListener("click", function(event){
+            // console.log(event);
+            if ( event.altKey === true ) {
+                image_scale *= 0.9;
+            } else {
+                image_scale *= 1.1;
+            }
+            draw_image_scaled(canvas, image, image_scale);
+        });
+
+        document.querySelector('button#zoom_in').addEventListener("click", function(event){
+            image_scale *= 0.9;
+            draw_image_scaled(canvas, image, image_scale);
+        })
+        document.querySelector('button#zoom_out').addEventListener("click", function(event){
+            image_scale *= 1.1;
+            draw_image_scaled(canvas, image, image_scale);
+        })
+
+    });
+
+}
+
+main();
+
+
+
+
+
+
+// image.onload = drawImageActualSize; // Draw when image has loaded
+
+
+// function drawImageActualSize() {
+//   // Use the intrinsic size of image in CSS pixels for the canvas element
+//   canvas.width = this.naturalWidth;
+//   canvas.height = this.naturalHeight;
+
+//   // Will draw the image as 300x227, ignoring the custom size of 60x45
+//   // given in the constructor
+//   ctx.drawImage(this, 0, 0);
+
+//   // To use the custom size we'll have to specify the scale parameters
+//   // using the element's width and height properties - lets draw one
+//   // on top in the corner:
+//   ctx.drawImage(this, 0, 0, this.width, this.height);
+// }
+
+
+// var image_width = 0;
+// var image_height = 0;
+
+// window.addEventListener("load", function(event){
+//     canvas.width = window.innerWidth;
+//     canvas.height = window.innerHeight;
+
+//     image_width = canvas.width;
+//     image_height = canvas.height;
+
+//     ctx.drawImage(image,0,0, image_width, image_height );
+// })
+
+// const button_zoom_in = document.querySelector('button#zoom_in');
+// button_zoom_in.addEventListener("click", function(event){
+//     image_width *= 1.1;
+//     image_height *= 1.1;
+//     ctx.drawImage(image,0,0, image_width, image_height );
+// })
+
+// const button_zoom_out = document.querySelector('button#zoom_out');
+// button_zoom_out.addEventListener("click", function(event){
+//     image_width /= 1.1;
+//     image_height /= 1.1;
+//     ctx.drawImage(image,0,0, image_width, image_height );
+// })
+
+</script>

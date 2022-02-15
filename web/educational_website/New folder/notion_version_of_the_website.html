@@ -1,0 +1,715 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>The Balloon and the Elephant</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2cecf6e0-4b1c-412b-8f50-b16f5f6464ae" class="page sans"><header><h1 class="page-title">The Balloon and the Elephant</h1></header><div class="page-body"><p id="683e6aef-8759-489f-b7b6-b671836540f6" class="">This site is an assortment of snippets, facts, and seemingly unrelated musings that seek to answer in concert the eternal questions of the universe.  The kinds of things that beg to be asked as you look up at the night sky and imagine the expanse of the milky way and what lies beyond; things like</p><ul id="48df5c7c-f739-4e85-a4aa-5d13eadee0ff" class="bulleted-list"><li>how big precisely is the world?  </li></ul><ul id="a6200f5e-0034-41cf-855b-b9a65be7d626" class="bulleted-list"><li>how would you get off it? and </li></ul><ul id="8749e210-1775-4d89-bfe2-7c1f6603a9e1" class="bulleted-list"><li>how big you&#x27;d be if you were a black hole</li></ul><p id="3d148015-884f-4623-89bc-6ae22e0930b3" class="">
+</p><p id="38a5be26-9de4-4578-a838-9f5d383ac542" class="">In its current incarnation it is mostly a discussion on space travel and its related technologies.</p><p id="899f8e1a-7102-40ee-8eb9-1c8b08aa85fd" class="">
+
+</p><h1 id="2ca53209-0b12-4412-9de6-c21036dfbdf0" class="">Space and Orbit</h1><p id="97e0a857-beb5-41b4-9ac4-9701573be71a" class=""><a href="https://www.nasa.gov/feature/download-nasa-videos-for-cinespace">https://www.nasa.gov/feature/download-nasa-videos-for-cinespace</a></p><figure id="cfc77ee6-7f43-4c91-875a-dade341da31a"><a href="https://www.youtube.com/watch?v=4993sBLAzGA" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">NASA Live: Earth From Space - Nasa Live Stream | ISS LIVE FEED : ISS Tracker + Live Chat</div><div class="bookmark-description">20% Off All Space Art &amp; Clothing In Our Store - Use Code &quot;taketwenty&quot; at checkout https://teespring.com/stores/amazing-space-art Earth from space seen from the International Space Station This live ISS HD HDEV stream of planet earth from space is courtesy of Nasa HDEV High Definition Earth Viewing Cameras aboard the international space station.</div></div><div class="bookmark-href"><img src="https://s.ytimg.com/yts/img/favicon-vfl8qSV2F.ico" class="icon bookmark-icon"/>https://www.youtube.com/watch?v=4993sBLAzGA</div></div><img src="https://i.ytimg.com/vi/4993sBLAzGA/hqdefault.jpg" class="bookmark-image"/></a></figure><p id="117b6828-5224-4c02-9516-a4164cae5487" class="">
+</p><p id="e8bb678b-1a1e-4ed0-9320-41086d5e57fe" class="">Space is far above your head and it keeps going forever.  Unfortunately so does the gravity of the Earth which poses a problem to those hoping to get off it.  The gravity near the international space station is actually about the same strength as it is on Earth which surprises a lot of people.  Although astronauts look like they are floating above the Earth they are actually falling towards it just like you or I would.</p><p id="8cbc9b5f-4c20-4896-8ad2-4086af7cc939" class="">
+</p><p id="a3fe1ee5-9232-4d42-8b33-d4237d8feda9" class="">So why don&#x27;t they hit?  The trick is that they are going sideways very fast.  This is called orbit and it&#x27;s when you go so fast that as you fall towards Earth you miss it and go around instead.  And you keep on doing that because there&#x27;s no air to slow you down.  Cool huh?</p><p id="bef72e38-1946-4048-bc50-c741e9a52e9d" class="">
+</p><p id="f16ce6ed-f8f4-4ead-a39b-eeb7b28b0e3e" class="">To be in orbit and not fall down again you need to go about 270 times faster than a car on the highway.  The moon, for instance, orbits around the Earth same way that the space station does.</p><p id="b5a22560-b1e8-4d13-9911-838d31f56072" class="">
+</p><p id="04d402fb-666e-4adf-b716-210e601fc5a6" class="">You could actually orbit at 1 meter off the ground if there wasn&#x27;t any hills or atmosphere.  If you&#x27;ve ever put your hand out of the window of car on the highway you&#x27;ll know that the air can exert quite a strong force if you&#x27;re going fast.  This effect gets much worse the faster you go.</p><p id="06b52aec-790c-42ac-ab38-99893bd3a6d4" class="">
+</p><p id="3dc5b8cd-3ccd-45f9-aba4-60e94fdc530d" class="">But this is not such a problem when you&#x27;ve gone up high enough and the air gets very thin. Then all you need to do is go fast enough sideways. To do that there are two main strategies which I’ll call the balloon and elephant techniques.</p><p id="ef31bdc4-32fb-4baf-b3d4-9e5968fdd9bf" class="">
+</p><h1 id="e5b83921-57be-4abd-be41-391fb69c7f25" class="">Balloon Technology</h1><p id="d8f0f648-12aa-43ba-b1fc-46fa7eacef0c" class="">One of the options for getting into space is to use balloons.  The balloon option works about how you&#x27;d expect. You blow up a balloon and then you let it go and the balloon makes that farting noise as it jets off around the room. As unlikely as it may seem the balloon option is the most popular way to get into sapce at the moment.</p><p id="2055e6d8-ff34-4608-a340-886e4d976c26" class="">
+</p><p id="d0922030-f39c-4bc8-b5b6-a5b3d1592ddb" class="">Nobody has made a balloon which will fly fast enough to get into orbit.  Balloons also run out of air quickly, they can pop, and also they reduce in size which would make flying in them cramped.  So we had to get something else. Explosions! </p><p id="92b93c52-551a-4e09-9c57-92d883101136" class="">
+</p><p id="9b9cdbca-eb59-4adc-977d-e1126cbdfce8" class="">Yes the only way people have found to get into space is by sitting on-top of explosions.  Not a short explosion like you&#x27;re used to but one that lasts for minutes.  There&#x27;s many problems with this like if you sit on an explosion won&#x27;t you explode?  And how do I keep an explosion going once it&#x27;s exploded? </p><p id="fb28b21f-bd0d-4fff-96f7-c775804f8f5a" class="">
+</p><p id="244d8441-97f5-4593-9e2a-2d65d9d896ae" class="">The elephant technique is the main alternative to balloon technology.  </p><p id="306f8d7b-f1e0-49f5-93d9-642cf00fd4e2" class="">
+</p><h1 id="b25027a8-ea50-47ac-abd2-f020f61c5cd2" class="">Elephants</h1><p id="eaf2e972-3cd6-4787-804d-a1a6b1dd4b09" class="">&lt;elephant swinging crocodile into space&gt;</p><p id="5ebe09ba-d963-4fe6-befc-b00ecf568b7d" class="">
+</p><p id="aa00524f-642a-496d-abf2-a85855a9c768" class="">It was once thought up by a smart puppy called Newton who also invented gravity. Newton didn&#x27;t know about elephants so he opted to use a cannon instead. He&#x27;d seen them before so he thought maybe we could make a big one to get into orbit.  </p><p id="f5b59446-99dc-46fc-999e-7e14a48122e7" class="">
+</p><p id="2e2603fc-d9fc-4522-a740-969d5d5ebc85" class="">&lt;Elephant montage&gt;</p><p id="89946197-ed72-47f4-a1c9-38b4665ee1ca" class="">
+</p><p id="097ba930-9d6b-41a1-ac66-4f35b0291f8e" class="">It turns out that even a really big cannon will only get you most of the way there so you’ll need some balloon technology to give you that extra kick at the end.  Also once you’re in orbit you’ll need balloon technology to get anywhere else.  So it turns out that balloon technology really is the way to go.</p><p id="fcf65865-b337-4036-bf99-03f1a18173a9" class="">
+</p><p id="6879c5b3-ca08-43e5-8723-d5fff758f5aa" class="">Now that we&#x27;ve decided to go into space with balloons where should we go?</p><p id="5a7cd16a-6298-4a72-8057-d50b1c699f29" class="">
+</p><h1 id="e8c2db63-154c-42be-b3a6-b98eddb62a08" class="">Where to go?</h1><p id="4fedce5e-e5aa-459e-9f44-1c8ebbc4b633" class="">It&#x27;s so hard to get to another planet that the only reasonable options to go to first are the closest ones; the Moon, Venus, and Mars.  </p><h1 id="111353d0-9b0c-4013-882a-84888627bb9b" class="">Our Moon</h1><p id="c49bc7a7-0c11-46a6-ad20-7ab040098fca" class="">The moon is quite close and has wonderful views.  </p><figure id="69f0a6c4-0b25-4fba-bf2c-bd730b456ca7" class="image"><a href="images/moon.jpg"><img style="width:3300px" src="images/moon.jpg"/></a><figcaption>Distance to scale (<a href="https://www.notion.so/48eab292781d4ab79f2fc33db70ee185">wiki</a>)</figcaption></figure><p id="756d25e7-75f2-4c62-88bc-ee36ae374d99" class="">There&#x27;s no air, it&#x27;s very dusty, and has about 15% gravity.  The days are 13 days long and the nights are also 13 days long (one moonth).  Because the days are so long the surface can get a bit toasty - about 120 degrees Celcius so you might want to live at the North or South Pole if you don&#x27;t want your shoes to melt.</p><figure id="02361ec5-17d5-45b0-ac75-4ed756068220" class="image"><a href="images/moon-heat.jpg"><img style="width:672px" src="images/moon-heat.jpg"/></a><figcaption>Temperature of the Moon at the South Pole</figcaption></figure><p id="165fcf89-69c8-4a92-9eae-b4824d9d007e" class="">Hopefully there&#x27;s some water in craters so we can do our laundry and take luxurious showers.</p><p id="461ecf18-7c58-41ed-baa6-bb9949f30e27" class="">Another problem is that there&#x27;s no carbon or nitrogen which you need to make people (<a href="https://en.wikipedia.org/wiki/Geology_of_the_Moon#Elemental_composition">wiki</a>).</p><h1 id="2466675c-1852-439a-87c7-0cf21a89a37e" class="">Venus</h1><p id="e657bcc9-1b71-4ec9-a45b-eef33c230c31" class="">Venus is one of the two planets closest to the Earth but it&#x27;s 400 Degrees which is a bit of a show stopper.  Venus also boasts an atmosphere which is about 100 times thicker than Earth&#x27;s. (<a href="https://en.wikipedia.org/wiki/Venus">wiki</a>). </p><p id="91df2a1c-c693-4a25-b719-75a9f4966005" class="">Blimp-life:</p><p id="e19f1387-e6f1-4f50-9d15-daa080c464d5" class="">You might be able live above Venus in a blimp.  50km above the surface the weather is quite nice and a blimp full of Earth&#x27;s atmosphere would float.  So you could hang out there ... in a blimp (<a href="https://en.wikipedia.org/wiki/High_Altitude_Venus_Operational_Concept">wiki</a>). </p><h1 id="1f7a52ff-1db2-4390-a903-a2b0a3621bcf" class="">Mars</h1><p id="ed87184a-cd10-46c6-bbfb-466679d90223" class="">Mars kind of wins by default.  Its nearby.  The days are about 24 hours.  The gravity is 37%.  It has all the elements that are needed for life.  It&#x27;s pretty cold - colder than the South Pole, but the max temperature is about 30 degrees C, which is doable.  The atmosphere is very thin but better than no atmosphere at all.  </p><p id="0ce592c3-290e-4ee4-9d82-cf6ad9518740" class="">Living on Mars would be a little bit like living in Antarctica with low gravity and space suits.  </p><p id="00414605-4236-4ea4-8a90-106a5fe79fb9" class="">Since there&#x27;s liquid water and the other necessary elements there might be living things on Mars.</p><p id="3e78b04e-3b3b-41f0-999f-16e6d61bb829" class="">
+</p><p id="3faf6683-ad8c-4f0f-9b10-786b2a5649e5" class="">
+</p><h1 id="ff68f42e-1654-49d9-9ccc-297e4bf32b0e" class="">Getting Around the Solar System</h1><p id="10dae0c1-e9c5-4fdd-89ad-4f58a53415a7" class="">It turns out that to get to other planets you need to go really fast as well.  In fact the distances between planets are not measured in km.</p><p id="9af0594f-a0bd-4e24-a143-97e6b0f54c32" class="">
+</p><h2 id="39076934-7547-4f23-a957-cc9c59c59659" class="">The Rocket Equation</h2><p id="7408cf62-06c9-47a1-920e-29691beca4c9" class="">The change in velocity that you can achieve is the product of the exhaust velocity and the natural logarithm of the mass ratio, which is the final mass divided by the initial mass.  Here it is in math gobbledygook.</p><p id="d6dcbca5-305e-4f41-b77e-e1f946fe16bc" class="">
+</p><figure id="9a1a6ff7-5d4b-4de4-9833-6f375cd7d5f9" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>v</mi><mo>=</mo><msub><mi>V</mi><mi>e</mi></msub><mi>ln</mi><mo>⁡</mo><mo stretchy="false">(</mo><msub><mi>M</mi><mi>f</mi></msub><mi mathvariant="normal">/</mi><msub><mi>M</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\Delta v = V_e \ln (M_f / M_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">Δ</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">e</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">ln</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord">/</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></div></figure><p id="b3786fa4-ca79-4978-9bda-6607aacb02d0" class="">Rocket people will refer to this as delta-v where delta means change and v means v, I mean velocity.</p><p id="7763adc8-130a-4105-9730-65dc3e9c1a18" class="">The logarithm function causes the relationship to have this shaped curve which indicates that there&#x27;s a limit to how fast you can go since speed is on the vertical axis.</p><figure id="ff7d0ff2-ae24-43b2-85c5-8a7b48876915" class="image"><a href="images/rocket-equation-graph.jpg"><img style="width:1434px" src="images/rocket-equation-graph.jpg"/></a><figcaption>Speed (in kilometers per second) versus the mass ratio for exhaust velocity of 3.5km/s</figcaption></figure><p id="59050502-1aee-42f8-a117-8b806e41fb1f" class="">If your rocket is 20 times as heavy when it&#x27;s full as it is when it&#x27;s empty and it&#x27;s got good engines then it&#x27;ll be able to accelerate to about 10km/s or about 36000 km/h.  </p><p id="f184a406-0399-4bf5-bb6b-8630111c3996" class="">
+</p><p id="6cac5670-913d-4dfb-8d38-a61b851f69ef" class="">Getting a higher mass ratio means trying to get your rocket as light as possible when its empty and still strong enough to go through the atmosphere at thousands of kilometers an hour is what keeps rocket scientists up all night.  </p><h1 id="a323db67-b0ba-4823-8f80-5424f6bc7dc6" class="">Subway Map of the Solar System</h1><figure id="21d2cc4c-9741-48f5-8e72-e83f3405697d" class="image"><a href="images/subway-map-of-the-solar-system.jpg"><img style="width:640px" src="images/subway-map-of-the-solar-system.jpg"/></a></figure><p id="2925a13f-163c-4f68-9a79-f89f3680eaa8" class="">
+</p><p id="c2da86cf-c470-4813-abc2-230059c4556d" class="">These are the speeds that are necessary to go to other planets in the solar system.  The little triangles mean you can use the atmosphere to slow down instead of your rocket engines (aerobraking). </p><p id="f0c879f8-0f5e-4caf-8935-6a65bb988c8b" class="">Earth&#x27;s delta-v is a bit higher than it is theoretically because whenever a rocket is going straight up none of that speed goes into getting to orbital speed.  Typically a rocket will lose about 1km/s going upward.</p><p id="698aeb9f-abd2-4069-9eec-5a53a7684d7f" class="">Mars actually looks like its very easy to get to if we are good at aerobraking.  But it&#x27;s very hard to aerobrake on Mars.  Mars has a very thin atmosphere and very large mountains to crash into if you make a mistake.  People are trying though.</p><p id="165af5ad-574a-4f9e-be5e-95a6d69c4f87" class="">
+</p><figure id="e7935bab-de72-49ab-9860-4070ea58b166"><div class="source"><a href="https://www.youtube.com/watch?v=00CpItR97zY">https://www.youtube.com/watch?v=00CpItR97zY</a></div></figure><p id="68b67159-decd-4a0c-8150-1e97bbbceb43" class="">
+</p><p id="06552c59-60f3-4626-ad81-bf2a3ef9cf75" class="">
+</p><h1 id="8b7787af-be27-4b8e-90fb-730dd2f218c1" class="">Space</h1><p id="ee182e0f-b9ea-4a03-bdb0-83f5a68ab881" class="">Space is where you put things.  For instance you&#x27;d say &quot;There&#x27;s a space to put that couch!&quot; but you wouldn&#x27;t say that if there already was a couch there.  Outer space is mostly the same - there&#x27;s no couches and also no air.  It would be embarrassing to try to breath in space so don&#x27;t try.</p><p id="2ebbf47d-83ba-40e1-8847-37017810d695" class="">
+</p><p id="15c155b8-d411-446d-b3fa-9f0e8dae81b9" class="">People who study space say it&#x27;s very complicated and start using words like virtual particle.  But in space travel the hardest thing is simply how far away everything is.</p><p id="e90d50ad-81f8-43e4-a35b-360a3af376a7" class="">
+</p><blockquote id="d26b13f3-2b50-4229-a194-4089b162d61a" class="">&quot;Space is big. You just won&#x27;t believe how vastly, hugely, mind-bogglingly big it is. I mean, you may think it&#x27;s a long way down the road to the chemist&#x27;s, but that&#x27;s just peanuts to space.&quot; - Douglas Adams</blockquote><p id="99450238-011f-4907-b240-77663755d9a9" class="">
+</p><h1 id="53807ed1-7113-46cc-b93b-c7cd32da8528" class="">The Temperature of Space</h1><p id="b474d0e7-3a00-4161-96ed-1c2dedf95606" class="">
+</p><p id="f66ff48f-d229-443b-9f9d-2f997d25a5f9" class="">People are sometimes told that space is extremely cold which is misleading.  There&#x27;s almost nothing in space which means it&#x27;s not that cold.  It&#x27;s the difference between putting your hand in boiling water vs putting your hand in the oven when it&#x27;s 100 degrees.  The water is going to be much worse because there&#x27;s much more stuff in the water than in the oven.  Similarly there&#x27;s almost no atoms in space (which you could probably work out from the name) so there&#x27;s nothing to steal your thermal energy and make you feel cold.  So it wouldn&#x27;t really feel that cold.  But if your naked skin is feeling space directly then you&#x27;re probably already in trouble.<div class="indented"><p id="b301738d-af02-4890-a822-43023d8bfc56" class="">
+</p><p id="c25e9ac2-dcbe-4c74-87fe-a82d304f75d1" class=""><em>&quot;It’s impressive what nothing can do to a man.&quot; - Jayne, Firefly</em></p></div></p><p id="7965634b-ae99-41f2-a370-252c87262dfd" class="">
+</p><p id="e4e01736-66b8-41af-b7f7-558af48bf047" class="">Vacuum (emptiness) can cause all kinds of grief.  Because your atoms are bouncing around all the time they will spreads as soon if they can like a fat guy on a King sized bed in an expensive hotel suite.  Although air seems quite thin there&#x27;s more than a million million million million atoms in your room bouncing against each other and on you at the moment which keep your mischievous liquids from escaping (boiling off).  There&#x27;s even air molecules in your mouth keeping the saliva on your tongue in check.</p><pre id="fb71bcd2-8abd-4a4b-ba25-b4d94984dbe1" class="code"><code>6e24 / 24.5
+== 2.45e23 # molecules per litre normally</code></pre><p id="8aebdd07-fe34-4d4c-8843-6b677abaa146" class="">
+</p><p id="434fbf41-c76a-4bee-9d0d-24a1469577a7" class="">Because you&#x27;re so much warmer and denser than the atoms in space, the liquids you&#x27;re made of will actually boil off in space which will cause you to have a bad day.</p><p id="12a798f6-78c3-416f-aab9-b17d733c1862" class="">
+</p><figure id="f3fba9f4-3908-4433-b158-c5e1884af13d"><div class="source"><a href="https://www.youtube.com/watch?time_continue=18&amp;v=3GG9ApFyBms">https://www.youtube.com/watch?time_continue=18&amp;v=3GG9ApFyBms</a></div><figcaption>This video doesn&#x27;t make my point but it&#x27;s cool</figcaption></figure><p id="22c295e6-3aec-4b4b-a6a6-9f3394b61177" class="">
+</p><p id="91a775b0-019a-4335-b48b-08857e162ddb" class="">
+</p><h2 id="59d15e6a-a01c-4a87-8f95-4f06935275cb" class="">Black Holes</h2><p id="7e5109a0-763c-47f6-a779-3fb32990b092" class="">Apparently black holes do exist now and we are all doomed eventually to enjoy living with and eventually in them by the time the universe ends.  So I for one have decided to try to relate to my spatially challenged brethren by finding out just how small I’d have to become become one of them. What followed might surprise and bore you. </p><p id="102d9ad8-19fc-4eee-b4e3-52d42a45f2fc" class="">Long story short - I need to be squeezed to about the size of a proton. So no good news there.  The Earth would need to be squeezed to the size of a peanut.  Our sun would need to be mushed into a region the size of Manhattan. </p><p id="9591f2cf-1c7b-4c75-9eda-b84c3b9df1a8" class=""> </p><figure id="85e227b7-763c-452b-b10d-9aa6db534075"><div class="source"><a href="https://youtu.be/QgNDao7m41M">https://youtu.be/QgNDao7m41M</a></div></figure><p id="9e43b8df-d24f-4965-b28d-a45eade6104e" class="">
+</p><p id="9baad5d5-5080-4d00-abb7-0e17387efbfa" class="">
+</p><h1 id="17b07fa7-a414-4be4-81f0-74530ec54899" class="">Gravity</h1><p id="58681b87-ff7f-46a6-b486-12a4f0ea3dc8" class="">Gravity is the weakest of the fundamental forces.  It&#x27;s a trillion trillion trillion times weaker than the other ones.  But it doesn&#x27;t cancel out like they do, it just keeps on adding up.  So it gets strong when things are big and comes into play when dealing with asteroid sized things and above.</p><p id="eaeb092a-3f9a-415e-82fd-769cbd03c0b7" class="">
+</p><p id="328a3bcb-f496-4ba8-b33b-8ad7d69e6dd6" class="">Everything pulls on everything else just a little bit. Your neighbour (if she&#x27;s there) is currently pulling on you with an invisible force.  The Earth is bigger than everything else so it pulls the most.  This is the reason why you can only fly in your dreams and probably can&#x27;t dunk in basketball.  It&#x27;s called gravity. Newton invented it a while back.</p><figure id="8be06fb0-d0a0-4294-a49f-abcb21d02725" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo>=</mo><mfrac><mrow><mi>G</mi><msub><mi>m</mi><mn>1</mn></msub><msub><mi>M</mi><mn>2</mn></msub></mrow><msup><mi>r</mi><mn>2</mn></msup></mfrac></mrow><annotation encoding="application/x-tex">F = \frac{Gm_1M_2}{r^2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.10903em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div></figure><p id="c0a52de3-87b1-431c-9479-7e0caa386def" class="">Although astronauts in orbit look like they&#x27;re floating they&#x27;re actually continually falling towards the Earth. The earth pulls on the astronauts about as strongly as it does to you but they keep on missing the Earth as they fall.  They are going so fast sideways as they hurtle towards the ground they miss.  Then they miss again and again. This continuous falling but never crashing into the thing is called orbiting like an orb or circle.</p><p id="34daa90c-6c89-4bb7-bd3b-50ff0f481136" class="">
+</p><p id="f64512c6-24bb-4df7-a034-0a6f064f8665" class="">We orbit in squished circles called ellipses that are shaped a bit like eggs. Nature is pretty random and the things that didn&#x27;t rotate in something resembling a circle hit eachother until they did but they&#x27;re still not perfect circles.  None of the planets orbits really intersect because they&#x27;re the only planets left after the old ones got into fisticuffs as mentioned before. </p><p id="9c89caf9-d9ce-4972-b80f-dc487baf4e7e" class="">
+</p><p id="a5e8d273-2cf8-482d-b119-7b90ff14d1f3" class="">Incidentally the moon originally got into fisticuffs with the earth which is why it always looks at us with the same face, meaning it&#x27;s rotational velocity is the same as the Earth&#x27;s because it smashed into us a while back before it started to orbit. This is why there&#x27;s a Dark side of the moon album by Pink Floyd.  The only way you can see the back of the moon is with a spaceship going around the back. </p><p id="c8634212-1b72-4487-9ed4-e6151d1b1eb7" class="">
+</p><p id="1e70a7d5-0c48-4198-a5c8-1dd85d09decd" class="">There is slightly more to gravity than this.  It&#x27;s arguably still the greatest mystery still known to physics in that scientists haven&#x27;t been able to come up with a theory that explains it using their usual tricks like reducing everything to the interplay of microscopic particles that dance with one another.</p><p id="089108ba-3280-406b-8ccb-af56287b93db" class="">
+</p><p id="7831ea6f-d3bc-4e1c-9d1b-30e0d34ec1f8" class="">
+</p><h1 id="ba4cfc33-137b-45c6-b2fe-c73913831980" class="">Explosions / Rockets</h1><p id="d9c4a168-5951-4a7f-b66a-c7e7f90d94e2" class="">Rocket science (engineering) is hard because it&#x27;s basically about how to sit on top of an explosion. The main problem with our balloon turns out to be the main problem with our rocket. It runs out of gas. If you run out of gas then you might get stuck in empty space. </p><p id="57e3181a-6a6c-4cab-a655-baae0930b54d" class="">
+</p><p id="0aed258f-2eb8-4f1c-af5e-c225fac188cb" class="">If you sit on a chair then you can move by pushing on something else like another person on a chair. Or you could get a fire extinguisher and use it to move. You’ll move in the opposite direction to the thing you were trying to move. It turns out that invisible atoms works like this as well. When the atoms shoot out of the back or the rocket they are coming from a collision that came from a collision that came from a collision that hit the back of your rocket and imparted the same push to you as it got from the explosion. </p><p id="bc33afb6-2021-4aa8-9ce6-caafe0c26f78" class="">
+</p><p id="d244d470-da31-4681-b37f-aa61c0b0ccbe" class="">Balloons work the same way. It goes forwards because the air goes backwards and the little pieces of air all hit each other and the last one hit on the inside of the balloon.  It turns out that the last collision was between the balloon and the last atom. So it’s the thing that actually moves forward. It actually moves forward and hits more air molecules and it will speed them up as it hits them.  </p><p id="b677e1a8-70ca-4145-8317-f7e2ee802dd6" class="">
+</p><p id="f0098967-f6da-4a81-89d6-2041b1f377a0" class="">You can hit a hammer on some metal to test this. If they get hot very quickly they’ll go faster and try to fly off in all directions.  If we put a hole in the bottom it’ll fly out backwards and push us forwards.  In fact the rocket is a bit like a very very powerful spray can.  It&#x27;s made of metal and once you press a button a lot of junk will spray out of it. </p><p id="9ba7d7ff-cbf0-41d6-8e39-af7e88ef6126" class="">
+</p><p id="6dbbfb32-ce01-413c-9614-a098b4a067a0" class="">It&#x27;s quite hard to imagine how this actually works because rockets are so much larger and more powerful than things we&#x27;re used to.  But in addition to the exhaust being essentially a continuous explosion, the weight of the stuff shooting out of the back of the rocket is quite high also.  Here is an example of fuel usage as measured in elephants.</p><p id="9da49b1b-bc52-4114-8ed9-1f959872e881" class="">
+</p><figure id="d74c1509-9875-4d2b-ab02-46f8d542fcd6"><div class="source"><a href="https://www.youtube.com/watch?v=X4iMeKif488">https://www.youtube.com/watch?v=X4iMeKif488</a></div></figure><p id="213a9147-ae89-46ae-a896-fbb7229b1917" class="">
+</p><h2 id="5cead6a6-05de-46d3-bf1d-631812858abf" class="">Side note: What about really fast airplanes?</h2><p id="5f47570c-64f4-4cde-b199-3a40623ec08b" class="">
+</p><p id="c41ae0aa-1bc4-46a4-bedc-6f708ce76137" class="">Airplanes move by using big fans to move air.  There&#x27;s no air in space so they top out at a certain altitude.  You can use a big plane to lift a little rocket up a bit higher but if you want to lift a big rocket you need an even bigger plane and sometimes there just isn&#x27;t a large enough plane.  Also the main problem is to go fast enough to get into orbit and planes don&#x27;t solve that.  Not to mention that plane engines won&#x27;t get you anywhere else in the Solar System.</p><h1 id="fcc6809e-68d1-4572-8ffc-2c88a9a3af7e" class="">How to build a rocket</h1><p id="801a7b98-1261-4f5a-935d-3b833bc38ca8" class="">Through painstaking research I&#x27;ve been able to simplify the process of rocket design and manufacture to a handful of steps.</p><ol type="1" id="84be8d63-a0d3-4bb8-bf80-919b3c1fb65d" class="numbered-list" start="1"><li>bend some metal into a cylinder shape</li></ol><ol type="1" id="887b2729-5fd5-4db4-9f2d-ffbb37a4a146" class="numbered-list" start="2"><li>weld some spherical bits to the ends</li></ol><ol type="1" id="c09afcf5-4302-4d88-b003-a923085565f1" class="numbered-list" start="3"><li>put two of these together and put another half sphere bit in between</li></ol><ol type="1" id="be08b10c-19a9-4a42-bcc4-17fd927dcd72" class="numbered-list" start="4"><li>Fill one bit with liquid oxygen</li></ol><ol type="1" id="7d1bad3e-5b3e-4a9f-866d-d574998c9b34" class="numbered-list" start="5"><li>Fill the other bit with petrol</li></ol><ol type="1" id="25745968-c0f5-4f7f-b1a9-82c4c4db5873" class="numbered-list" start="6"><li>Pressurize them </li></ol><ol type="1" id="2374b4df-ca0f-48fa-855a-3ac657747f0d" class="numbered-list" start="7"><li>Get a long stick and light a match</li></ol><p id="7d07111a-fb46-40e1-b91c-f5f64f9179e7" class="">
+</p><p id="070bf2e1-b98a-4d5f-8100-e8f5ccb0b851" class="">
+</p><h1 id="bc288f28-ee8b-4e74-843c-b5ac8d920034" class="">Misc</h1><p id="072cdd5f-7f37-44c0-980a-defc25ec51dd" class="">
+</p><p id="af80b167-c75d-4155-b2f2-1970fb093ab0" class="">
+</p><h1 id="264abac4-21e8-49e1-a420-3f7ac5a7906e" class="">How to build a rocket</h1><ol type="1" id="e86cc80f-bf8a-46c3-a529-cff1a8af0268" class="numbered-list" start="1"><li>bend some metal into a cone shape</li></ol><ol type="1" id="b7c1e4e4-e172-4449-835a-73557ffa18bd" class="numbered-list" start="2"><li>weld some spherical bits to the ends</li></ol><ol type="1" id="5175fe7f-8b50-45f2-b83f-3f122769b4ef" class="numbered-list" start="3"><li>put two of these together and put another cone bit in between</li></ol><ol type="1" id="eb61eaca-8ee4-4b83-857d-bb476db401b8" class="numbered-list" start="4"><li>Fill one with liquid oxygen</li></ol><ol type="1" id="e7204911-639c-418c-bf0a-897a95b2e0ac" class="numbered-list" start="5"><li>Fill the other with petrol</li></ol><ol type="1" id="6df4cf13-c150-4b83-a574-927561c7a634" class="numbered-list" start="6"><li>Pressurize them </li></ol><ol type="1" id="5bddbdb5-89a5-4011-ad17-d9d1cc7c7e77" class="numbered-list" start="7"><li>Get a long stick and light a match</li></ol><p id="cd940ed6-0ee4-4068-8bd2-7c8b060312bb" class="">
+</p><p id="007ed63a-affa-42ae-b7af-fcb5f8127fa6" class="">
+</p><p id="d95ea2f7-def6-4d6a-81a6-13fea01c959a" class="">The trickiest thing seems to be plumbing.</p><p id="72affc7d-0f64-4900-8137-7d6104e7a8c4" class="">
+</p><p id="c9de33ef-3af6-4857-8efd-27ce72c341a1" class="">Example: ignition system of Shuttle, Falcon 9, Starship</p><p id="b4afeafa-a5b7-4c87-ba09-64ca6ec2ebc8" class="">starship will use spark ignition like your cooktop</p><p id="c0a919f1-6a30-4488-be38-2765fa4d7bf0" class="">Inition: flint - why is flint good at making sparks?  Little particles of iron are shaved off which react with oxygen <a href="https://en.wikipedia.org/wiki/Flint#To_ignite_fire_or_gunpowder">(wikipedia)</a>  Iron would like to be close to oxygen and when get close enough they snap together (~feynman)</p><p id="743cb16a-8f10-4fb1-ad2c-f6b656d52810" class="">Really the pumps and valves seem to be the tricky thing.  </p><p id="ca7e9b21-f7be-4537-b985-28c4aac6b209" class="">
+</p><p id="c4f233d8-5ad7-475a-b043-77322f9ec92d" class="">Rocket Fuels<div class="indented"><p id="f67a6964-412a-43b7-9de6-99df5a5f5898" class="">The best fuels are the lightest because they go the fastest when you hit them with a hammer.</p><p id="c2e0bde0-4386-4996-a17c-a48a0d398370" class="">
+</p><p id="0277c437-cafb-4e59-a594-eac457fd05b4" class="">&lt;kinetic formula - hydrogen vs keroscene vs methane</p><p id="f94cb55a-3631-47f3-8969-e19e09c45e19" class="">reasons why methane is good</p><p id="b17f1475-0610-48c5-9aff-dab3dd35c38f" class="">hydrogen takes big tanks which are heavy.</p><p id="02b704f0-a616-4698-916b-e1fc98e866c7" class=""><a href="http://www.aerospacengineering.net/?p=656">http://www.aerospacengineering.net/?p=656</a></p><p id="5171ccca-23a9-4245-ace2-91252ff4b7e5" class="">kerosene or rocket propellant 1 (RP-1) is pretty good but it can&#x27;t be made easily on another planet.  Methane or natural gas as it&#x27;s sometimes branded can be made with simple (yet quite slow) chemical reactions from water and carbon dioxide in the air (the thing that might warm up the Earth).</p><p id="41197ada-35d0-4a72-b37d-607931d4b6cc" class="">
+</p></div></p><p id="a90fed77-940e-435b-904f-31514df8f951" class="">
+</p><ul id="16982393-ab56-453a-962e-741a1fd8d916" class="toggle"><li><details open=""><summary>Gases</summary><p id="820bc215-f7e3-47ce-a79f-da033f8adfa9" class="">equal and opposite - sitting on a chair, push off, fire extinguisher (don&#x27;t do it)</p><p id="920bbec9-da23-4982-bca3-7ef06fe6dcd3" class="">angular momentum - skater spinning around, why it&#x27;s easier to balance on a bike who&#x27;s wheels are spinning (you can also turn slightly in the direction that you fall in)</p><p id="8b590733-c847-4cb8-8243-c5115fb667e5" class="">entropy - energy spreads out</p><p id="1634a0d6-eb72-450f-86c5-650dab77e2a8" class="">Now because the explosion takes a while the explosives (which are liquid explosives) take a while to run out. They are exploding out of the back of your rocket so you slowly run out of fuel.   Now the explosion doesn’t get any less powerful but you get lighter so you start to speed up faster </p></details></li></ul><p id="90590be3-df25-4bc9-bcc4-4fe0dcad52da" class="">
+</p><p id="b29de321-8295-429a-908a-b1bd78bd7274" class="">
+</p><ul id="8dbb0ae8-fcba-443e-b873-9dad4f105210" class="toggle"><li><details open=""><summary>Planes in Space</summary><p id="d1dd359e-a354-4674-81e9-e99911ca2666" class="">Planes move around by using fans to blow air backwards.  The higher you go the less air there is which means it&#x27;s impossible for planes to go into space.  </p><p id="a1d601e8-989e-4f03-9843-f9076762a75b" class="">
+</p><p id="abe44da4-38e9-4ead-bce6-0e5f7bcfcf66" class="">further than that you need to bring your own liquid explosives to push you.  The Earth keeps pulling things towards it even out as far as the moon (which is why the moon stays near the Earth).  If you go directly upwards to try to get into space you&#x27;ll probably just fall back to Earth again unless you can get very far.  What most people do &quot;park&quot; in orbit.</p><p id="9b490f1f-aa31-4b79-b5f0-2f2c03af88aa" class="">
+</p><p id="a68ceab4-c1b0-496a-9a4e-3dca3418ce26" class="">and some people have even floated up very high with balloons (that they don&#x27;t use for propulsion but rather for buoyancy - like a boat)</p></details></li></ul><p id="8c28ae6e-69f6-4060-b237-06f3d1963abc" class="">
+</p><p id="274e9c3b-f68e-4373-b379-303a32dfeb46" class="">&lt;Functionality: Change to mph&gt;</p><p id="65f59dca-8871-4579-a43a-042b95040c1e" class="">
+</p><p id="321a35b2-5a49-4539-ac03-3623068a75eb" class="">
+</p><p id="c230d664-aa78-40e1-8fcb-4286c730f746" class="">When atoms are hot they go faster</p><p id="7a7799e3-91ae-4c95-aded-be8e2bc27655" class="">
+</p><p id="0a4f4ca0-e4ec-41fc-a7e7-fb7f5ec7f166" class="">
+</p><p id="47dda345-a0b5-4796-9cd4-262cfd955baf" class="">
+</p><p id="f2b77373-87f4-4aeb-b514-32d472f45253" class="">The practicalities of life How fast you need to go?</p><p id="eab18295-9ecb-404f-92c3-2680901cd142" class="">The acceleration due to gravity equals the sideways velocity squared divided by the distance from the center of the planet (radius).</p><figure id="a8f82222-15da-4df0-87e2-1dd8790d4058" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>g</mi><mo>=</mo><mfrac><msup><mi>v</mi><mn>2</mn></msup><mi>r</mi></mfrac></mrow><annotation encoding="application/x-tex">g = \frac{v^2}{r}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.177108em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.491108em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div></figure><ul id="0638f72b-2175-41d6-a120-b7a36833d51c" class="bulleted-list"><li>How big is the world?</li></ul><ul id="9295caeb-f279-4fed-aa22-08af4a540979" class="bulleted-list"><li>How strong is gravity?<p id="2330af57-e1ff-464b-aa8a-605b8e9e9fe2" class="">If you drop a bowling ball out of your window (please don&#x27;t) you&#x27;ll find that its speed increases linearly at about 10m/s every second.  So after one second the speed will be about 10m/s or 36kmph which is pretty quick.  This rate of acceleration is called 1 g.</p></li></ul><ul id="55967b1c-76b9-422f-82c5-bb94a3c4ce7a" class="bulleted-list"><li>How fast you need to go</li></ul><ul id="e22e93a4-5688-45e3-ad95-705e31176228" class="bulleted-list"><li>How long it&#x27;ll take to get around the world</li></ul><ul id="71bb1942-5e7a-4c33-99bf-eacfd4808908" class="bulleted-list"><li>How big you&#x27;d be if you were a black hole</li></ul><p id="ddc3b59e-12bf-4319-94a0-5251876ae245" class="">
+</p><p id="44ad57d2-59d1-4695-8ade-57738634cf9c" class="">
+</p><h1 id="dae9fe9d-8686-4c58-b89d-402437f6e6d3" class="">On Dreams</h1><p id="0f9e9d79-aa75-453f-84f2-bfa08e4395b7" class=""><div class="indented"><p id="65ce2788-72d4-45e0-bec1-99e0b33229e3" class="">And I grew up in the – in the 70s, when there was, uh – it was – it was a period of, you know, the – the careers advisor used to come to school and – and h – he used to s – get the kids together and say, “Look, I – I advise you to get a career, what can I say? That’s it.” And he took me aside – he said, “Whatcha you want to do, kid? Whatcha you want to do? Tell me, tell me your dreams!” “I want to a space astronaut, go to outer space, discover things that have never been discovered.” He said, “Look, you’re British, so scale it down a bit, all right?” “All right, I want to work in a shoe shop then! Discover shoes that no one’s ever discovered right in the back of the shop on the left.” And he said, “Look, you’re British, so scale it down a bit, all right?” “All right, I want to work in a sewer then. And discover sewage that no one’s ever discovered. And pile it on my head and the come to the surface and sell myself to an art gallery.” He said, “What the fuck have you been smoking, eh? Certainly haven’t been smoking in a bar in California, that’s for certain.” - Eddie Izzard</p></div></p><p id="13a023f4-6cc5-479d-8518-f28b4195b7ee" class="">
+</p><p id="39735839-ed2e-46b0-8aec-886e126ec2dc" class="">Why go to space - get to meet aliens. walk around in a space suit.  visit other planets.  fight mean aliens.  have laser guns.  explore strange new places.</p><p id="3120a76a-3942-42aa-80c0-7f939b3251ec" class="">
+</p><p id="dc7abfa7-90be-4bb5-a942-d3157796fd4b" class="">Why do anything?</p><p id="25d4beeb-7ee2-44a9-946a-97660a57112b" class="">
+</p></div></article></body></html>

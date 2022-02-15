@@ -1,0 +1,137 @@
+<!-- 
+This demo can be really thirsty.  It makes my laptop sound like it's taking off some times.
+There must be a better way of doing this.
+
+ -->
+<div id="div_id" style="width: 100%; height: 100%; "></div>
+
+<script src="https://js.arcgis.com/4.13/"></script>
+<script src="tractor_telemetry.js"></script>
+
+<script>
+
+  let map;
+  let view;
+  let graphics_layer_1;
+  let graphics_layer_2;
+
+
+  function init_map(arg = { latitude: -41.5, longitude: 173.85, zoom: 10 }) {
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/Graphic",
+      "esri/layers/GraphicsLayer"
+    ], function (Map, MapView, Graphic, GraphicsLayer) {
+
+      map = new Map({
+        basemap: "satellite"
+      });
+
+      view = new MapView({
+        container: "div_id",
+        map: map,
+        center: [arg.longitude, arg.latitude],
+        // latitude: latitude1,
+        // center: [173.85, -41.5],
+        zoom: arg.zoom
+      });
+
+      graphics_layer_1 = new GraphicsLayer();
+      map.add(graphics_layer_1);
+
+      graphics_layer_2 = new GraphicsLayer();
+      map.add(graphics_layer_2);
+
+    });
+
+  }
+
+
+  function draw_point(a) {
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/Graphic",
+      "esri/layers/GraphicsLayer"
+    ], function (Map, MapView, Graphic, GraphicsLayer) {
+
+
+
+      point = new Graphic({
+        geometry: {
+          type: "point",
+          longitude: a.longitude,
+          latitude: a.latitude
+        },
+        symbol: {
+          type: "simple-marker",
+          color: [226, 119, 40],  // orange
+          outline: {
+            color: [0, 0, 0], // white
+            width: 1
+          }
+        }
+      });
+
+      graphics_layer_1.removeAll();
+      graphics_layer_1.add(point);
+
+    });
+  }
+
+
+
+  function draw_polyline(arg) {
+
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/Graphic",
+      "esri/layers/GraphicsLayer"
+    ], function (Map, MapView, Graphic, GraphicsLayer) {
+
+
+      let graphic = new Graphic({
+        geometry: {
+          type: "polyline",
+          paths: arg
+        }, symbol: {
+          type: "simple-line",
+          // cap: cap,
+          color: [255, 0, 0, 0.5],
+          width: 3,
+          style: "solid"
+        }
+      })
+      graphics_layer_2.add(graphic);
+
+
+    });
+  }
+
+
+
+  const gps_stride = 100;
+
+  init_map({ latitude: gps[0], longitude: gps[1], zoom: 20 });
+
+
+
+  let polyline = [];
+  for (var i = 0; i < gps.length; i += gps_stride) { polyline.push([gps[i + 1], gps[i + 0]]) }
+  draw_polyline(polyline)
+
+
+  let gps_index = 0;
+  draw_point({ latitude: gps[gps_index + 0], longitude: gps[gps_index + 1] });
+
+  function move_point() {
+    draw_point({ latitude: gps[gps_index + 0], longitude: gps[gps_index + 1] });
+    gps_index = gps_index + gps_stride;
+  }
+
+  setInterval(move_point, 100);
+
+
+</script>

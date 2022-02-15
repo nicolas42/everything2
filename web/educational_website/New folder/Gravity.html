@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script type="text/javascript" src="js/tools.js"></script>
+        <script src="js/jquery-1.4.2.js"></script>
+        <script src="js/jquery.hotkeys.js"></script>
+		<!-- Call Script This Last -->
+		<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+	
+	</head>
+	<body>
+<div class="inner">
+
+
+		<h1 class="title">
+			<a href="javascript:showHide('nav.container');">&#9776; &nbsp;</a> 
+			Gravity
+		</h1>
+		<nav class="container">
+			<div><a href="index.html">The Elephant and the Balloon</a></div>
+			<div><a href="Orbit.html">Orbit</a></div>
+			<div><a href="Balloon-Technology.html">Balloon Technology</a></div>
+			<div><a href="Elephants.html">Elephants</a></div>
+			<div><a href="Where-to-go.html">Where To Go</a></div>			
+			<div><a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a></div>
+			<div><a href="Space.html">Space</a></div>
+			<div><a href="Gravity.html">Gravity</a></div>
+			<div><a href="Explosions.html">Explosions</a></div>
+		</nav>
+
+		<p>Gravity is the weakest of the fundamental forces.  It's a trillion trillion trillion times weaker than the other ones.  But it doesn't cancel out like they do, it just keeps on adding up.  So it gets strong when things are big and comes into play when dealing with asteroid sized things and above.</p>
+
+		<p>Everything pulls on everything else just a little bit. Your neighbour (if she's there) is currently pulling on you with an invisible force.  The Earth is bigger than everything else so it pulls the most.  This is the reason why you can only fly in your dreams and probably can't dunk in basketball.  It's called gravity. Newton invented it a while back.</p>
+		
+		<p>$$F = \frac{G m_1 m_2}{r^2}$$</p>
+
+		<p>Although astronauts in orbit look like they're floating they're actually continually falling towards the Earth. The earth pulls on the astronauts about as strongly as it does to you but they keep on missing the Earth as they fall.  They are going so fast sideways as they hurtle towards the ground they miss.  Then they miss again and again. This continuous falling but never crashing into the thing is called orbiting like an orb or circle.</p>
+
+		
+		<p><img class="small-image" src="images/image9.jpg" alt="smiling crocodile The Enormous Crocodile by Roald Dahl" /></p>
+		<p>Circular Motion is only tangentially related to gravity but is still amusing.</p>		
+
+		<p>We orbit in squished circles called ellipses that are shaped a bit like eggs. Nature is pretty random and the things that didn't rotate in something resembling a circle hit eachother until they did but they're still not perfect circles.  None of the planets orbits really intersect because they're the only planets left after the old ones got into fisticuffs as mentioned before. </p>
+		
+		<p>Incidentally the moon originally got into fisticuffs with the earth which is why it always looks at us with the same face, meaning it's rotational velocity is the same as the Earth's because it smashed into us a while back before it started to orbit. This is why there's a Dark side of the moon album by Pink Floyd.  The only way you can see the back of the moon is with a spaceship going around the back. </p>
+		
+		<p>There is slightly more to gravity than this.  It's arguably still the greatest mystery still known to physics in that scientists haven't been able to come up with a theory that explains it using their usual tricks like reducing everything to the interplay of microscopic particles that dance with one another.</p>
+
+
+
+<nav class="nav-footer">
+		<a id="prevPage" href="Space.html"><div class="chevron left"></div></a>
+		<a id="nextPage" href="Explosions.html"><div class="chevron right"></div></a>
+	</nav>
+
+
+</div><!-- inner -->
+<footer>
+	<a href="Where-to-go.html">Where To Go</a>			
+	<a href="index.html">The Elephant and the Balloon</a>
+	<a href="Balloon-Technology.html">Balloon Technology</a>
+	<a href="Elephants.html">Elephants</a>
+	<a href="Explosions.html">Explosions</a>
+	<a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a>
+	<a href="Gravity.html">Gravity</a>
+	<a href="Orbit.html">Orbit</a>
+	<a href="Space.html">Space</a>
+</footer>
+
+<script>
+	function nextPage() {
+		document.getElementById('nextPage').click();
+	}
+	function prevPage() {
+		document.getElementById('prevPage').click();
+	}
+	$(document).bind('keyup', 'left', prevPage);
+	$(document).bind('keyup', 'right', nextPage);
+	$(document).bind('keyup', 'f', toggleMargins);
+	$(document).bind('keyup', 'm', showHideMenu);
+	$(document).bind('keyup', 'shift+p', prevPage);
+	$(document).bind('keyup', 'shift+n', nextPage);
+</script>
+</body>
+</html>

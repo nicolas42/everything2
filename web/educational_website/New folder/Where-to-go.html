@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script type="text/javascript" src="js/tools.js"></script>
+        <script src="js/jquery-1.4.2.js"></script>
+        <script src="js/jquery.hotkeys.js"></script>
+		
+	</head>
+	<body>
+<div class="inner">
+
+		<h1 class="title">
+				<a href="javascript:showHide('nav.container');" alt="Open Main Menu">&#9776; &nbsp;</a> 
+				Where To Go
+			</h1>
+			<nav class="container">
+				<div><a href="index.html">The Elephant and the Balloon</a></div>
+				<div><a href="Orbit.html">Orbit</a></div>
+				<div><a href="Balloon-Technology.html">Balloon Technology</a></div>
+				<div><a href="Elephants.html">Elephants</a></div>
+				<div><a href="Where-to-go.html">Where To Go</a></div>			
+				<div><a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a></div>
+				<div><a href="Space.html">Space</a></div>
+				<div><a href="Gravity.html">Gravity</a></div>
+				<div><a href="Explosions.html">Explosions</a></div>
+			</nav>
+
+
+<p>Once you're actually in space you'll have to decide where to go.  I mean you could hang around in orbit if you want I guess. </p>
+<p>It’s takes a long time to get to another planet so the only reasonable options to go to first are the closest ones; the Moon, Venus, and Mars.</p>
+<h1>Our Moon</h1>
+<p>The moon is quite close and has wonderful views.</p>
+<p><img src="images/moon.jpg" alt="The Moon" /></p>
+<p>Distance to scale</p>
+<p>There’s no air, it’s very dusty, and has about 15% Earth's gravity.  The days are 13 days long and the nights are also 13 days long (totaling one moonth).  Because the days are so long the surface can get a bit toasty - about 120 degrees Celcius so you might want to live at the North or South Pole if you don’t want your shoes to melt.</p>
+<p><img src="images/moon-heat.jpg" alt="Moon Pole Heat Map" /></p>
+<p>Figure: Temperature of the Moon at the South Pole (credit: NASA)</p>
+<p>Hopefully there’s some water in craters so we can do our laundry and take luxurious showers.</p>
+<p>Another problem is that there’s no carbon or nitrogen which you need to make people (<a href="https://en.wikipedia.org/wiki/Geology_of_the_Moon#Elemental_composition">wiki</a>).</p>
+<h1>Venus</h1>
+<p>Venus is one of the two planets closest to the Earth but it’s 400 Degrees which is a bit of a show stopper.  Venus also boasts an atmosphere which is about 100 times thicker than Earth’s. (<a href="https://en.wikipedia.org/wiki/Venus">wiki</a>).</p>
+<h2>Blimp-life</h2>
+<p>You might be able live above Venus in a blimp.  50km above the surface the weather is quite nice and a blimp full of Earth’s atmosphere would float.  So you could hang out there … in a blimp (<a href="https://en.wikipedia.org/wiki/High_Altitude_Venus_Operational_Concept">wiki</a>).</p>
+<h1>Mars</h1>
+<p>Mars kind of wins by default.  Its nearby.  The days are about 24 hours.  The gravity is 37% of Earth's.  It has all the elements that are needed for life.  It’s pretty cold - colder than the South Pole, but the max temperature is about 30 degrees C, which is doable.  The atmosphere is very thin but better than no atmosphere at all.</p>
+<p>Living on Mars would be a little bit like living in Antarctica with low gravity and space suits.</p>
+<p>Since there’s liquid water and the other necessary elements there might be living things on Mars.</p>
+
+		
+			
+<nav class="nav-footer">
+		<a id="prevPage" href="Elephants.html"><div class="chevron left"></div></a>
+		<a id="nextPage" href="Getting-Around-the-Solar-System.html"><div class="chevron right"></div></a>
+	</nav>
+
+
+</div><!-- inner -->
+<footer>
+	<a href="Where-to-go.html">Where To Go</a>			
+	<a href="index.html">The Elephant and the Balloon</a>
+	<a href="Balloon-Technology.html">Balloon Technology</a>
+	<a href="Elephants.html">Elephants</a>
+	<a href="Explosions.html">Explosions</a>
+	<a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a>
+	<a href="Gravity.html">Gravity</a>
+	<a href="Orbit.html">Orbit</a>
+	<a href="Space.html">Space</a>
+</footer>
+
+<script>
+	function nextPage() {
+		document.getElementById('nextPage').click();
+	}
+	function prevPage() {
+		document.getElementById('prevPage').click();
+	}
+	$(document).bind('keyup', 'left', prevPage);
+	$(document).bind('keyup', 'right', nextPage);
+	$(document).bind('keyup', 'f', toggleMargins);
+	$(document).bind('keyup', 'm', showHideMenu);
+	$(document).bind('keyup', 'shift+p', prevPage);
+	$(document).bind('keyup', 'shift+n', nextPage);
+</script>
+</body>
+</html>

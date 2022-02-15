@@ -1,0 +1,108 @@
+<script src="https://js.arcgis.com/4.13/"></script>
+<script src="tractor_telemetry.js"></script>
+
+<script>
+
+require([
+    "esri/Map",
+    "esri/views/MapView",
+    "esri/Graphic",
+    "esri/layers/GraphicsLayer"
+], function (Map, MapView, Graphic, GraphicsLayer) {
+
+
+    let map;
+    let view;
+    let point_layer;
+    let polyline_layer;
+
+    window.initialize_map = function(arg = { latitude: -41.5, longitude: 173.85, zoom: 10 }) {
+
+        map = new Map({
+            basemap: "satellite"
+        });
+
+        view = new MapView({
+            container: "div_id",
+            map: map,
+            center: [arg.longitude, arg.latitude],
+            zoom: arg.zoom
+        });
+
+        polyline_layer = new GraphicsLayer();
+        map.add(polyline_layer);
+
+        point_layer = new GraphicsLayer();
+        map.add(point_layer);
+
+    }
+
+    window.draw_polyline = function(arg) {
+
+        let polyline = new Graphic({
+            geometry: {
+                type: "polyline",
+                paths: arg
+            }, symbol: {
+                type: "simple-line",
+                // cap: cap,
+                color: [255, 0, 0, 0.5],
+                width: 3,
+                style: "solid"
+            }
+        })
+        polyline_layer.add(polyline);
+
+    }
+
+    window.draw_point = function(a) {
+
+        point_layer.removeAll();
+        point = new Graphic({
+            geometry: {
+                type: "point",
+                longitude: a.longitude,
+                latitude: a.latitude
+            },
+            symbol: {
+                type: "simple-marker",
+                color: [226, 119, 40],  // orange
+                outline: {
+                    color: [0, 0, 0], // white
+                    width: 1
+                }
+            }
+        });
+        point_layer.add(point);
+
+    }
+
+});
+
+
+function main()
+{
+    var gps_index = 0;
+    var gps_stride = 100;
+    var gps_interval = 100; // ms
+    var polyline = [];
+    for (var i = 0; i < gps.length; i += gps_stride) { 
+        polyline.push([gps[i + 1], gps[i + 0]]) 
+    }
+
+    function move_point() {
+        draw_point({ latitude: gps[gps_index + 0], longitude: gps[gps_index + 1] });
+        gps_index = gps_index + gps_stride;
+    }
+
+    initialize_map({ latitude: gps[0], longitude: gps[1], zoom: 20 });
+    draw_polyline(polyline)
+    draw_point({ latitude: gps[gps_index + 0], longitude: gps[gps_index + 1] });
+    setInterval(move_point, gps_interval);
+}
+
+</script>
+
+<body onload="main()">
+    <div id="div_id" style="width: 100%; height: 100%; "></div>
+</body>

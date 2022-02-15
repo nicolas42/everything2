@@ -1,0 +1,283 @@
+keyboard shortcuts in linux - pc file
+---------------------------------------
+
+The file named "pc" is a linux (ubuntu or mint) keyboard bindings file which has been modified to change capslock to enter.
+The file was originally found at /usr/share/X11/xkb/symbols/pc.  
+Presumably replacing the existing file with this one will achieve the desired result.
+
+    //    key <CAPS> {      [ Caps_Lock             ]       };
+        key <CAPS> {        [ Return                ]       };
+
+After this reload the keyboard map with 
+
+    setxkbmap us
+
+There's a premade pc file in this repo if you don't want to do it yourself.
+
+
+There are many sections in these files.  The top one appears to bethe default so just modify that one I suppose.
+
+To change other keys modify /usr/share/X11/xkb/symbols/us
+then again reload it with setxkbmap us
+
+
+sudo nano /usr/share/X11/xkb/symbols/pc
+check settings
+setxkbmap -query
+set keyboard map to us
+setxkbmap us
+
+
+In a bash script, to change to the directory of the script
+
+    cd $(dirname $0) 
+
+
+Miscellaneous make.sh notes 
+--------------------------------
+Perhaps I should finally learn the make language?
+
+# g++ -std=c++11  -Iinclude/  -Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC -flto -Ofast -c 
+# gcc -Iinclude/  -Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC -flto -Ofast -c
+
+# g++ -std=c++11  -Iinclude/  -Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC -flto -Ofast -c image_opencv.cpp
+
+gcc -c src/*.c
+ar rcs lib.a *.o 
+rm *.o 
+
+
+
+cat $0
+gcc -Isrc -Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC -std=c99   -c src/*.c
+gcc -Isrc -Wall -Wno-unknown-pragmas -Wfatal-errors -fPIC -std=c++14 -c src/*.cpp
+ar rcs lib.a *.o
+rm *.o 
+
+
+
+
+Run google chrome insecurely 
+--------------------------------------
+#!/bin/bash
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --allow-file-access-from-files --disable-web-security
+
+
+mount a device in linux
+--------------------------------------
+sudo mount -t ntfs-3g -o ro /dev/nvme0n1p3 /media/windows/
+
+
+
+
+
+fix linux and windows using different clocks
+--------------------------------------------------------
+timedatectl set-local-rtc 1 --adjust-system-clock
+
+Linux will no longer apply timezone adjustments to the clock on your motherboard. As a result, the clocks on your dual boot Windows 10 and Linux set up will be in perfect sync. Before you reboot though you should probably make sure it has worked. Just Enter the command below in the Terminal.
+
+timedatectl
+
+https://mashtips.com/fix-linux-windows-dual-boot-clock-different-time/#:~:text=Method%202%3A%20Make%20Windows%20use%20UTC%20Time&text=For%20this%2C%20go%20to%20Settings,toggle%20under%20Set%20time%20automatically.
+
+
+
+
+
+
+
+
+
+Interesting Sources of Software
+--------------------------------------------------------------
+no mixer configi n /var/lib/alsa/asound.state, you have to unmute your card!
+ 
+stb
+https://github.com/nothings/stb
+image loader: stb_image.h
+image writer: stb_image_write.h
+image resizer: stb_image_resize.h
+font text rasterizer: stb_truetype.h
+typesafe containers: stb_ds.h
+ 
+SDL
+suckless
+tinygl
+beej
+lemoda.net
+opencv
+ 
+soso
+wyos
+ 
+ 
+Alpine Linux on Virtualbox Notes
+--------------------------------------------------------------
+
+IMPORTANT: I have not been able to get audio working on alpine linux in virtualbox 
+on a macos host.
+
+ 
+in system boot order, set hard drive to be the first item
+root
+setup-alpine
+ 
+vi /etc/apk/repositories # add community repo
+apk update
+ 
+adduser nick
+visudo # add nick to sudoers
+ 
+install suckless dwm as per this guide
+https://wiki.alpinelinux.org/wiki/Dwm
+alt+p is used for the search bar in dwm
+ 
+xrandr -s 1440x900
+# The option --size/-s can be used with randr version 1.1 or newer
+ 
+xrandr -s 1440x900
+ 
+alt+shift+q quits dwm
+startx starts it again
+alt+shift+c closes a window
+alt+p opens the "start" menu
+ 
+ 
+ 
+ 
+
+ 
+ 
+Alpine Linux on Virtualbox with XFCE
+--------------------------------------------------------------
+https://wiki.alpinelinux.org/wiki/Xfce_Setup
+ 
+root
+setup-alpine
+ 
+vi /etc/apk/repositories
+apk update
+ 
+adduser nick
+visudo
+ 
+setup-xorg-base 
+apk add xfce4 faenza-icon-theme 
+exec startxfce4
+ 
+sudo dbus-x11 st chromium 
+ 
+ 
+To Do
+change resolution in dwm -xrandr?
+get copy and paste working for virtualbox guest additions
+
+
+
+ 
+
+ 
+c++ features to use;
+--------------------------------------------------------------
+auto
+static_cast
+auto thing = 0;
+static_cast<templated_type*>(the_thing_were_casting);
+ 
+ 
+tiny unix-like operating system
+https://github.com/ozkl/soso
+https://github.com/akkartik/mu can run on soso
+
+
+
+
+
+
+monitor network traffic
+--------------------------------------------------------------
+sudo /usr/local/sbin/iftop
+wireshark?
+
+
+
+
+ 
+Beej's Guide to Socket Programming in C
+--------------------------------------------------------------
+there's stream sockets and datagram sockets.  they correspond to TCP and UDP respectively
+when your program does stuff it'll specify application logic and TCP or UDP or something.  This goes on a header to the Then other systems can take care of the IP layer and the physical layer.
+[ ethernet / wifi [ IP (routing) [ TCP [ application_protocol [ THE_ACTUAL_DATA ]  ] ] ] ]
+IPv4 addresses have 32 bits  128.0.0.1/30  
+CIDR side note: The number can be split up into network and host numbers using the CIDR /30 bit which specifies that the first 30 bits are the network and the last 2 are for the computers on that network.  I suppose this effectively increases the number of network addresses by about 2X.
+IPv6 have 128 bits: abc0:ff00::51 
+Zeroes can be left out with the double colon notation.
+ 
+Port numbers specify the program or the class of program.  There's established conventions as to which port numbers different programs use.  Ports under 1024 are often considered special, and usually require special OS privileges to use.
+ 
+Big endian is how regular numbers are written
+Network Byte Order is big endian
+Host Byte Order varies
+ 
+There are functions that convert between these byte orders
+short (2 bytes).  long (4 bytes)
+htons()  host to network short
+ 
+
+
+
+ 
+nginx - getting started
+--------------------------------------------------------------
+static server
+Hussein Nasser
+http://nginx.org/en/docs/beginners_guide.html
+ 
+On macos put this into /usr/local/etc/nginx/nginx.conf.  
+ 
+http {
+    server {
+        listen 8080;
+        root /Users/nick/Downloads/code/nginx/;
+ 
+    }
+}
+ 
+events { }
+ 
+Change the root directory and put an index.html file in there as well as whatever else you might want.  
+ 
+then run "nginx"
+ 
+then go to "localhost:8080" in a browser
+ 
+:)
+ 
+to stop "nginx -s stop"
+to reload the config file "nginx -s reload"
+there's plenty of other signals and config files can be much more complicated than this
+ 
+
+
+
+
+
+
+Write your own Operating System in 1 hour
+--------------------------------------------------------------
+https://www.youtube.com/watch?v=1rnA6wpF0o4
+http://github.com/nicolas42/wyoos
+
+interesting os stuff
+
+http://wyoos.org
+http://mikeos.sourceforge.net/write-your-own-os.html
+http://wiki.osdev.org
+http://www.linuxfromscratch.org/
+https://www.amazon.com/Modern-Operating-Systems-Andrew-Tanenbaum/dp/013359162X
+https://os.phil-opp.com/
+https://www.youtube.com/user/WhatsACreel x64 programming tutorials
+https://github.com/includeos/IncludeOS minimal unikernel operating system for C++ services
+
+

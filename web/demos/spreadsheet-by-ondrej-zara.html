@@ -1,0 +1,213 @@
+<!-- Javascript Spreadsheet -->
+
+<script src="math.min.js"></script>
+
+<script>
+
+/*
+Needed Features
+* resize function (for more columns and rows)
+* better keyboard navigation
+// To Do:
+// research how to do errors in javascript
+// Span takes a string and outputs a list of values
+// example: span("a1:a3"); => [a1,a2,a3]
+// Currently it can't handle coordinate requiring multiple letter indexing, e.g. aa123
+// Resources
+// localStorage.setItem('myCat', 'Tom');  
+// https://developer.mozilla.org/en/docs/Web/API/Window/localStorage
+// math.js
+// set(name, value) Set a variable or function in the parser’s scope.  
+// http://mathjs.org/docs/expressions/parsing.html
+// Variadics 
+// http://stackoverflow.com/questions/2141520/javascript-variable-number-of-arguments-to-function
+Sure, just use the arguments object.
+function foo() {
+  for (var i = 0; i < arguments.length; i++) {
+    alert(arguments[i]);
+  }
+}
+*/
+
+function span( a ) {
+
+    var o = [];
+
+    var b = a.split(":");
+    var p1 = b[0];
+    var p2 = b[1];
+
+    var x0 = p1.charCodeAt(0);
+    var x1 = p2.charCodeAt(0);
+    
+    var y0 = parseInt(p1.substring(1));
+    var y1 = parseInt(p2.substring(1));
+
+    for( var x=x0; x<=x1; x+=1 ) {
+    for ( var y=y0; y<=y1; y+=1 ) {
+        o.push( String.fromCharCode(x) + y.toString() );
+    }}
+    return o.join(",");   
+}
+
+function transform(str){
+
+     // only replaces one ":"
+
+    // var str = "math.sum(a1:a12)";
+    var i = str.indexOf(":");
+    if(i===-1) { 
+        return str; 
+    }
+    var start = 1 + str.slice(0,i).lastIndexOf("(");
+    var end = i + str.slice(i).indexOf(")");
+
+    var a = str.slice(0, start);
+    var c = str.slice(end);
+
+    var b = span(str.slice(start,end));
+
+
+    var o = [];
+    o.push(a);
+    o.push(b);
+    o.push(c);
+    return o.join("");
+
+}
+
+// var input = "=math.sum(a1:a12)"; transform(input);
+// var input = "=math.sum(a1,a2,a3,a4)"; transform(input);
+
+// var input = "=math.sum(a1:a12)"; transform(input.substring(1));
+
+
+// Import Math into global namespace
+(function(){
+a = Object.getOwnPropertyNames(Math)
+for(i=0; i<a.length; i+=1) {
+    try {
+        eval(a[i] + "=" + "Math." + a[i]);
+    }
+    catch (err) {
+      console.log("Problem importing Math into global namespace. Specifically " + a[i]);
+    }
+}
+})();
+
+// Math functions
+function sum() {
+    var total = 0;
+    var i;
+    for(i=0;i<arguments.length; i+=1) {
+        total += arguments[i];
+    }
+    return total;
+}
+//sum(1,23,4,123,4);
+
+function factorial(N) {
+    var total = 1;
+    var i;
+    for( i=2; i<=N; i+=1) {
+        total *= i;
+    }
+    return total;
+}
+// factorial(5);
+
+</script>
+
+<style>
+input {
+    border: none;
+    width: 120px;
+    font-size: 12px;
+    padding: 2px;
+}
+
+/* 
+input:hover { background-color: #eee; }
+input:focus { background-color: #ccf; }
+*/
+
+input:not(:focus) {
+    text-align: right;
+}
+
+table {
+    border-collapse: collapse;  
+}
+
+td {
+    border: 1px solid #ddd;
+    padding: 0;
+}
+
+tr:first-child td, td:first-child {
+    background-color: #eee;
+    padding: 1px 3px;
+    font-weight: bold;
+    text-align: center;
+}
+
+</style>
+
+<body>
+
+<p>Taken from<a href="http://thomasstreet.net/blog/spreadsheet.html">http://thomasstreet.net/blog/spreadsheet.html</a></p>
+
+<!--
+<p id="cellFormula">This area will show the complete value of the cell</p>
+<p id="cellResult">This area will show the result of the calculation</p>
+-->
+<table></table>
+    
+<footer><p>&copy; 2013 <a href="http://ondras.zarovi.cz/">Ondřej Žára</a></p></footer>
+
+</body>
+
+<script>
+// taken from http://jsfiddle.net/ondras/hyfn3/
+
+for (var i=0; i<=30; i++) {
+    var row = document.querySelector("table").insertRow(-1);
+    for (var j=0; j<=10; j++) {
+        var letter = String.fromCharCode("A".charCodeAt(0)+j-1);
+        row.insertCell(-1).innerHTML = i&&j ? "<input id='"+ letter+i +"'/>" : i||letter;
+    }
+}
+
+var DATA={}, INPUTS=[].slice.call(document.querySelectorAll("input"));
+INPUTS.forEach(function(elm) {
+    elm.onfocus = function(e) {
+        e.target.value = localStorage[e.target.id] || "";
+    };
+    elm.onblur = function(e) {
+        localStorage[e.target.id] = e.target.value.trim();
+        computeAll();
+    };
+    var getter = function() {
+        var value = localStorage[elm.id] || "";
+        if (value.charAt(0) == "=") {
+
+            // modification
+            var v2 = transform(value);
+            // debugging
+            if (v2 !== ""){
+                console.log(v2);
+            }
+
+            with (DATA) return eval(v2.substring(1));
+
+        } else { return isNaN(parseFloat(value)) ? value : parseFloat(value); }
+    };
+    Object.defineProperty(DATA, elm.id, {get:getter});
+    Object.defineProperty(DATA, elm.id.toLowerCase(), {get:getter});
+});
+(window.computeAll = function() {
+    INPUTS.forEach(function(elm) { try { elm.value = DATA[elm.id]; } catch(e) {} });
+})();
+
+</script>
+

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8"/>
+<body>
+<div id="google_translate_element"></div>
+<p>This example displays a horizontal translate button.</p>
+</body>
+</html>
+
+
+
+<script type="text/javascript" src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL}, 'google_translate_element');
+}
+</script>
+
+<!-- from https://www.w3schools.com/howto/howto_google_translate.asp -->

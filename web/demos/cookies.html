@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<SCRIPT>
+// This demo won't work without a running server.
+// source https://www.w3schools.com/js/js_cookies.asp
+
+// cookies are text files that are stored on your computer
+
+// set them like this
+// document.cookie = "username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC";
+// They're deleted when the browser is closed.
+
+
+document.cookie = "username=John Doe";
+// This doesn't set a string it writes a little text file on your computer.
+// It'll be there when you go back to the same page.
+
+// you can set cookies for other pages too
+document.cookie = "username=John Doe; path=/";
+
+// cookies can be set to self-terminate after a certain date-time
+// document.cookie = "username=John Doe; expires=Thu, 18 Dec 2022 12:00:00 UTC; path=/";
+
+// Cookies can be deleted like this apparently
+// document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+// The EU hates cookies because they're probably pretty insecure.
+// It meas that a bunch of information can be stored on someone else's computer.
+
+// In response every website now has an annoying question box asking me if I want their 
+// website to not work properly
+
+document.cookie = "omg_another_variable=something";
+document.cookie = "and_another_one=23";
+let a = document.cookie;
+console.log(a);
+
+</SCRIPT>    

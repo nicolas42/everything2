@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script type="text/javascript" src="js/tools.js"></script>
+        <script src="js/jquery-1.4.2.js"></script>
+        <script src="js/jquery.hotkeys.js"></script>
+		
+	</head>
+	<body>
+<div class="inner">
+
+
+		<h1 class="title">
+			<a href="javascript:showHide('nav.container');">&#9776; &nbsp;</a> 
+			The Balloon and the Elephant
+		</h1>
+		<nav class="container">
+			<div><a href="index.html">The Elephant and the Balloon</a></div>
+			<div><a href="Orbit.html">Orbit</a></div>
+			<div><a href="Balloon-Technology.html">Balloon Technology</a></div>
+			<div><a href="Elephants.html">Elephants</a></div>
+			<div><a href="Where-to-go.html">Where To Go</a></div>			
+			<div><a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a></div>
+			<div><a href="Space.html">Space</a></div>
+			<div><a href="Gravity.html">Gravity</a></div>
+			<div><a href="Explosions.html">Explosions</a></div>
+		</nav>
+
+<p>Or how to get to orbit with artful metaphors</p>
+<p><img class="small-image" src="images/kirk_and_spock.jpg" alt="kirk and spock" /></p>
+
+<p>This site is an assortment of snippets, facts, and seemingly unrelated musings that seek to answer in concert the eternal questions of the universe.  The kinds of things that float to mind when you look up at the night sky and imagine the expanse of the milky way and what lies beyond.  Things like</p>
+
+<ul>
+<li>How big precisely is the world?</li>
+
+<li>How would you get off it if you didn't like it so much? And</li>
+
+<li>how big would you be if you were a black hole</li>
+</ul>
+
+<p>In its current incarnation it is mostly a discussion on space travel and its related technologies.
+	You can move between page with the left and right keys, the arrows at the bottom of the page, or with the menu &#9776; button at the top left of the page.  The main menu can also be shown and hidden with the hotkey 'm'. 
+</p>
+
+<p>To get into space, first you probably want to get into orbit.</p>
+<nav class="nav-footer">
+		<a id="prevPage" href="#"><div class="chevron left"></div></a>
+		<a id="nextPage" href="Orbit.html"><div class="chevron right"></div></a>
+	</nav>
+
+
+</div><!-- inner -->
+<footer>
+	<a href="index.html">The Elephant and the Balloon</a>
+	<a href="Orbit.html">Orbit</a>
+	<a href="Balloon-Technology.html">Balloon Technology</a>
+	<a href="Elephants.html">Elephants</a>
+	<a href="Where-to-go.html">Where To Go</a>			
+	<a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a>
+	<a href="Explosions.html">Explosions</a>
+	<a href="Gravity.html">Gravity</a>
+	<a href="Space.html">Space</a>
+
+</footer>
+
+<script>
+	function nextPage() {
+		document.getElementById('nextPage').click();
+	}
+	function prevPage() {
+		document.getElementById('prevPage').click();
+	}
+	$(document).bind('keyup', 'left', prevPage);
+	$(document).bind('keyup', 'right', nextPage);
+	$(document).bind('keyup', 'f', toggleMargins);
+	$(document).bind('keyup', 'm', showHideMenu);
+	$(document).bind('keyup', 'shift+p', prevPage);
+	$(document).bind('keyup', 'shift+n', nextPage);
+</script>
+</body>
+</html>

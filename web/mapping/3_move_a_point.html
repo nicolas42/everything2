@@ -1,0 +1,74 @@
+<div id="div_id" style="width: 100%; height: 100%; "></div>
+
+<script src="https://js.arcgis.com/4.13/"></script>
+
+<script>
+
+let map;
+let view;
+let graphics_layer;
+var point;
+var point_longitude = 154.0;
+var point_latitude = -27.5;
+
+
+require([
+  "esri/Map",
+  "esri/views/MapView",
+  "esri/Graphic",
+  "esri/layers/GraphicsLayer"
+], function (Map, MapView, Graphic, GraphicsLayer) {
+
+  map = new Map({
+    basemap: "satellite"
+  });
+
+  view = new MapView({
+    container: "div_id",
+    map: map,
+    center: [153, -27.5],
+    zoom: 9
+  });
+
+  graphics_layer = new GraphicsLayer();
+  map.add(graphics_layer);
+});
+
+
+function move_point() {
+
+  point_longitude = point_longitude - 0.01;
+  
+  require([
+    "esri/Map",
+    "esri/views/MapView",
+    "esri/Graphic",
+    "esri/layers/GraphicsLayer"
+  ], function (Map, MapView, Graphic, GraphicsLayer) {
+
+    point = new Graphic({
+      geometry: {
+        type: "point",
+        longitude: point_longitude,
+        latitude: point_latitude
+      },
+      symbol: {
+        type: "simple-marker",
+        color: [226, 119, 40],  // orange
+        outline: {
+          color: [0, 0, 0], // white
+          width: 1
+        }
+      }
+    });
+    graphics_layer.add(point);
+
+  });
+}
+
+setInterval(move_point, 200);
+
+// window.addEventListener('load', test);
+
+
+</script>

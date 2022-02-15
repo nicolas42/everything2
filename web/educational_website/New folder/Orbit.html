@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script type="text/javascript" src="js/tools.js"></script>
+        <script src="js/jquery-1.4.2.js"></script>
+        <script src="js/jquery.hotkeys.js"></script>
+		<!--		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>-->
+		<!-- Call Script This Last !!!-->
+		<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+		
+	</head>
+	<body>
+<div class="inner">
+		<h1 class="title">
+			<a href="javascript:showHide('nav.container');">&#9776; &nbsp;</a> 
+			Orbit
+		</h1>
+		<nav class="container">
+			<div><a href="index.html">The Elephant and the Balloon</a></div>
+			<div><a href="Orbit.html">Orbit</a></div>
+			<div><a href="Balloon-Technology.html">Balloon Technology</a></div>
+			<div><a href="Elephants.html">Elephants</a></div>
+			<div><a href="Where-to-go.html">Where To Go</a></div>			
+			<div><a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a></div>
+			<div><a href="Space.html">Space</a></div>
+			<div><a href="Gravity.html">Gravity</a></div>
+			<div><a href="Explosions.html">Explosions</a></div>
+		</nav>
+</div>
+
+<!--
+	<video autoplay muted loop id="myVideo" class="video" onclick="playPause('#myVideo');">
+		<source src="ISS_trimmed.mp4" type="video/mp4">
+		Your browser does not support HTML5 video.
+	</video>
+
+	<div class="inner">
+			<button class="button" onclick="toggleMargins();">Toggle <u>F</u>ull Screen</button>	  
+			<button class="button" onclick="playPause('#myVideo')"><u>P</u>lay/Pause</button>	  
+
+-->
+
+<div class="inner">
+
+<p>Space is far above your head and it keeps going forever.  Unfortunately so does the gravity of the Earth which poses a problem to those hoping to get off it.  The gravity near the international space station is actually about the same strength as it is on Earth which surprises a lot of people.  Although astronauts look like they are floating above the Earth they are actually falling towards it just like you or I would.</p>
+
+<p>So why don't they hit?  The trick is that they are going sideways very fast.  This is called orbit and it's when you go so fast that as you fall towards Earth you miss it and go around instead.  And you keep on doing that because there's no air to slow you down.  Cool huh?</p>
+
+<p>
+	When you go sideways fast enough your sideways velocity kind of balances out how you fall towards the Earth.  
+	You can find out how fast you need to go in order to effectively float if you solve this equation 
+	when 
+	\(a = 10m/s^2 \) and 
+	\(r = 6371000m\) 
+	$$ a = \frac{v^2}{r} $$
+  </p>
+
+  <p>For the curious, 10m/s is how fast things speed up when you drop them out of your window and 6371 km is the distance from where you are to the center of the Earth.</p>
+<p>To be in orbit and not fall down again you need to go about 270 times faster than a car on the highway.  The moon, for instance, orbits around the Earth same way that the space station does.</p>
+
+<p>You could actually orbit at 1 meter off the ground if there wasn't any hills or atmosphere.  If you've ever put your hand out of the window of car on the highway you'll know that the air can exert quite a strong force if you're going fast.  This effect gets much worse the faster you go.</p>
+
+<p>But this is not such a problem when you've gone up high enough and the air gets very thin. Then all you need to do is go fast enough sideways. To do that there are two main strategies which I’ll call the balloon and elephant techniques.</p>
+
+
+
+<nav class="nav-footer">
+		<a id="prevPage" href="index.html"><div class="chevron left"></div></a>
+		<a id="nextPage" href="Balloon-Technology.html"><div class="chevron right"></div></a>
+	</nav>
+
+
+</div><!-- inner -->
+<footer>
+	<a href="Where-to-go.html">Where To Go</a>			
+	<a href="index.html">The Elephant and the Balloon</a>
+	<a href="Balloon-Technology.html">Balloon Technology</a>
+	<a href="Elephants.html">Elephants</a>
+	<a href="Explosions.html">Explosions</a>
+	<a href="Getting-Around-the-Solar-System.html">Getting Around the Solar System</a>
+	<a href="Gravity.html">Gravity</a>
+	<a href="Orbit.html">Orbit</a>
+	<a href="Space.html">Space</a>
+</footer>
+
+<script>
+	function nextPage() {
+		document.getElementById('nextPage').click();
+	}
+	function prevPage() {
+		document.getElementById('prevPage').click();
+	}
+	$(document).bind('keyup', 'left', prevPage);
+	$(document).bind('keyup', 'right', nextPage);
+	$(document).bind('keyup', 'f', toggleMargins);
+	$(document).bind('keyup', 'p', playPauseOrbitVideo);
+	$(document).bind('keyup', 'k', playPauseOrbitVideo);
+	$(document).bind('keyup', 'm', showHideMenu);
+
+	$(document).bind('keyup', 'shift+p', prevPage);
+	$(document).bind('keyup', 'shift+n', nextPage);
+
+</script>
+</body>
+</html>

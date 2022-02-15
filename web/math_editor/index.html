@@ -1,0 +1,246 @@
+<!-- How TO - Create a Draggable HTML Element
+https://www.w3schools.com/howto/howto_js_draggable.asp
+
+SAVING TEXT TO A CLIENT-SIDE FILE USING VANILLA JS
+https://robkendal.co.uk/blog/2020-04-17-saving-text-to-client-side-file-using-vanilla-js
+
+
+
+To Do:
+https://www.html5rocks.com/en/tutorials/file/dndfiles//
+load file using button or drag and drop file onto box
+
+maybe autosave???
+ -->
+
+<!DOCTYPE html>
+<head>
+<style>
+#mydiv {
+	position: fixed;
+	top: 10px;
+	left: 850px;
+	z-index: 9;
+	background-color: #f1f1f1;
+	text-align: center;
+	border: 1px solid #d3d3d3;
+}
+
+#mydivheader {
+	padding: 10px;
+	cursor: move;
+	z-index: 10;
+	background-color: #2196F3;
+	color: #fff;
+}
+
+textarea { 
+    width: 600px; height: 800px; 
+	font-weight: 400;
+	line-height: 1.5em;
+    font-size: 1.1em;
+}
+
+</style>
+<style>
+* { box-sizing: border-box; }
+
+p#output { width: 800px; }
+
+
+h1,h2,h3,h4,h5,p { 
+	background-color: white;
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	font-weight: 400;
+	line-height: 2em;
+	padding: 10px;
+	/* margin: 10px; */
+	border: 1px solid grey; 
+}
+
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<script>
+
+
+
+function dragElement(elmnt) {
+	var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+	if (document.getElementById(elmnt.id + "header")) {
+	/* if present, the header is where you move the DIV from:*/
+	document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+	} else {
+	/* otherwise, move the DIV from anywhere inside the DIV:*/
+	elmnt.onmousedown = dragMouseDown;
+	}
+
+	function dragMouseDown(e) {
+	e = e || window.event;
+	e.preventDefault();
+	// get the mouse cursor position at startup:
+	pos3 = e.clientX;
+	pos4 = e.clientY;
+	document.onmouseup = closeDragElement;
+	// call a function whenever the cursor moves:
+	document.onmousemove = elementDrag;
+	}
+
+	function elementDrag(e) {
+	e = e || window.event;
+	e.preventDefault();
+	// calculate the new cursor position:
+	pos1 = pos3 - e.clientX;
+	pos2 = pos4 - e.clientY;
+	pos3 = e.clientX;
+	pos4 = e.clientY;
+	// set the element's new position:
+	elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+	elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+	}
+
+	function closeDragElement() {
+	/* stop moving when mouse button is released:*/
+	document.onmouseup = null;
+	document.onmousemove = null;
+	}
+}
+	
+
+function render_katex() {
+    var opts = {}
+    var output = document.getElementById("output");
+    output.innerHTML = document.getElementById("input").value;
+    renderMathInElement(output, opts);
+}
+
+const downloadToFile = (content, filename, contentType) => {
+    const a = document.createElement('a');
+    const file = new Blob([content], {type: contentType});
+    
+    a.href= URL.createObjectURL(file);
+    a.download = filename;
+    a.click();
+
+    URL.revokeObjectURL(a.href);
+};
+
+
+function main()
+{
+    render_katex();
+    document.getElementById("input").addEventListener("keyup", render_katex);
+
+    document.querySelector('#btnSave').addEventListener('click', () => {
+        const textArea = document.querySelector('textarea#input');
+        
+        downloadToFile(textArea.value, 'my-new-file.txt', 'text/plain');
+    });
+    //Make the DIV element draggagle:
+    dragElement(document.getElementById("mydiv"));
+
+
+}
+
+document.addEventListener("DOMContentLoaded", main);
+
+</script>
+
+</head>
+
+
+
+
+<p id="output">Consider the circle with equation \(x^2+y^2=25\).</p>
+<p style="height: 800px;">spacer</p>
+
+
+<div id="mydiv">
+<div id="mydivheader">Click here to move</div>
+<button onclick="render_katex()">render katex</button>
+<button id="btnSave">save</button>
+<br>
+<textarea id="input">
+
+Maxwell's Equation
+
+\[
+(\frac 1 c \frac d {dt} + \vec \nabla ) (\vec E + ic \vec B ) = \sqrt \frac \mu \epsilon	( cp - \vec J )
+\]
+
+
+x,y, and z are orthogonal vectors that point in the x,y, and z directions.	u,v,w are vectors, a,b,c,d... are scalars
+
+The cross product 
+$$
+xy = z \\
+yx = -z
+$$
+
+This obviously means that
+
+$$
+xy = -yx \quad (1)
+$$
+
+This is called anticommutativity.	If you reverse the order of the product it gets negated.	The cross product replaces the product of two vectors with its normal thing.	The wedge product which is what we'll use just doesn't do that weird thing.
+
+As far as I can tell that's basically it.	You can work out everything else by yourself.	But you're welcome to continue.
+
+If you multiply two vectors together you get the dot product and the wedge product like this; where a,b,c,d are scalars, everything else is a vector
+$$
+uv=(a \hat x + b \hat y ) ( c \hat x + d \hat y ) = (ac+bd) + (ad-bc)\hat x \hat y
+$$
+
+Still want the cross product?
+
+If you wanted the cross product because people love it so much you'd replace the $\hat x	\hat y$ at the end with $\hat z$.	You can calculate cross product from the wedge product and vice versa by multiplying with a trivector.
+
+$$ \hat z = \hat x	\hat y (\hat x	\hat y \hat z) $$
+
+To work the above out use the anticommutativity rule (1) and the fact that parallel unit vectors dot together to give 1.
+
+Rotations
+
+
+So we multiplied two 2D vectors together.	Great, now what.	
+
+The product of two vectors gives you this kind of thing.
+$$
+uv = c + d\hat x \hat y
+$$
+
+This works like a complex number except it'll rotate a vector, which is neat.	
+
+$$ u(vw) = (ax+by)(c+dxy) = (ac-bd)x + (ad+bc)y$$
+
+\( vw \) is behaving like a complex number.  
+
+This doesn't work on higher dimensions though.  For that you need to multiply by two bivectors like this.
+
+These are three dimensional vectors.  But they could be N-dimensional or so mathematicians assure me.
+
+\[  (ba)v(ab) \]
+
+\[
+v = 3x+2y+z \\
+(yx)v(xy) = yx(3x+2y+z)xy \\
+= yx(3y-2x+xyz) \\ 
+= -3x-2y+z
+\]
+
+\(xy\) is a 90 degree unit vector.  By multiplying by it and its conjugate on the right and left we rotated the vector by 180 degrees.
+
+We claimed that a bivector behaves like a complex number right?  So euler should work.
+
+\[ \hat a \hat b = \exp (\hat a \hat b \theta) = cos \]
+
+
+
+
+</textarea>
+</div>
+
+

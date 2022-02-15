@@ -1,0 +1,37 @@
+<!doctype html>
+<style> * { border: 1px grey solid } </style>
+<body></body>
+<script src="ganja.js"></script>
+
+<script>
+
+svg2 = Algebra(3,0,1,()=>this.graph( [1e123,1e23,1e13,1e12] ,{camera:1+.5e01-.5e02})); // and in 3D PGA
+
+document.body.appendChild(svg2);
+svg2.style.width = '1200px';
+svg2.style.height = '800px';
+
+</script>
+
+
+
+
+<!-- <script>
+canvas1 = Algebra(0).graph(x=>Math.sin(x*5));                   // Graph a 1D function in R
+
+canvas2 = Algebra(0).graph((x,y)=>x+y);                         // Graph a 2D function in R
+
+svg1 = Algebra(2,0,1,()=>this.graph([1e12,1e1,1e2]));           // Graph the origin and x and y-axis in 2D PGA
+
+svg2 = Algebra(3,0,1,()=>this.graph( [1e123,1e23,1e13,1e12] ,{camera:1+.5e01-.5e02})); // and in 3D PGA
+
+canvas3 = Algebra(4,1,()=>this.graph([.5e4-.5e5],{conformal:true,gl:true})); // The origin in 3D CGA
+
+// document.body.appendChild(canvas1);
+// document.body.appendChild(canvas2);
+// document.body.appendChild(svg1);
+document.body.appendChild(svg2);
+svg2.style.width = '1200px';
+svg2.style.height = '800px';
+// document.body.appendChild(canvas3);
+</script> -->

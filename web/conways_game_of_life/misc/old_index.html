@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    color: #333;
+    font-weight: 400;
+}
+
+body {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+</style>
+
+<h1>Conway</h1>
+<canvas></canvas> 
+<textarea>height: 400, width: 400, aliveColor: "0000ff", deadColor: "FFFFFFFF", delay: 300, canvas: $('canvas'),</textarea>
+<button onclick="doit(document.querySelector('textarea').value)">doit</button>
+<!-- <p>Example</p>
+<p>height: 100, width: 100, aliveColor: "8A2BE2FF", deadColor: "FFFFFFFF", delay: 500, canvas: document.querySelector("canvas"),</p> -->
+<script src="conway.js"></script>
+<script>
+
+    function $(selector)
+    {
+        return document.querySelector(selector);
+    }
+    function clear_all_timers(){
+        for(i=0;i<1000;i++){clearInterval(i)};
+    }
+
+    function doit(str){
+        clear_all_timers();
+        eval("a = {\n" + document.querySelector('textarea').value + "}")
+        conway(a);
+    }
+
+    document.querySelector('textarea').addEventListener("keydown", function(e){
+        // key = "Enter" shiftKey = true
+        if (e.key === "Enter" && e.shiftKey === true){
+            doit(document.querySelector('textarea').value);
+            e.preventDefault();
+        }
+
+    })
+
+    doit(document.querySelector('textarea').value);
+
+    // var timerID = conway();
+
+
+</script>
+<script src='autosize.js'></script>
+<script>
+    autosize(document.querySelector('textarea'));
+</script>
+
+
+
+
+<!--
+
+
+// a.aliveColor = hexToBytes(a.aliveColor);
+// a.deadColor = hexToBytes(a.deadColor);
+// if (a.aliveColor.length === 3){ a.aliveColor.push(255); }
+// if (a.deadColor.length === 3){ a.deadColor.push(255); }
+
+
+// conway() sets a timer
+// clear the timer before you set another
+// clearInterval(timerID);
+// conway({aliveColor: hexToBytes("8A2BE2FF")});
+
+
+// clearInterval(timerID);
+// // options
+// conway({
+//     timerID
+//     canvas: document.querySelector("canvas"), 
+//     height: 200,
+//     width: 200,
+//     aliveColor: hexToBytes("8A2BE2FF"),
+//     deadColor: [255, 255, 255, 255], 
+//     delay: 200
+// });
+
+
+-->
+
+

@@ -1,0 +1,56 @@
+<STYLE>* { margin: 1px; padding: 1px; border: solid 1px grey; } </STYLE>
+<SCRIPT type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></SCRIPT>
+<BODY>
+<DIV id="chart_div1" style="width: 1000px; height: 1000px"></DIV>
+<DIV id="chart_div2" style="width: 1000px; height: 1000px"></DIV>
+<DIV id="chart_div3" style="width: 1000px; height: 1000px"></DIV>
+<DIV id="chart_div4" style="width: 1000px; height: 1000px"></DIV>
+<DIV id="chart_div5" style="width: 1000px; height: 1000px"></DIV>
+</BODY>
+<SCRIPT>
+
+function make_graph(chart_id, r)
+{
+// x_n+1 = rx_n(1-x_n)
+function make_chaos(r)
+{
+    var x = [0.02];
+
+    for ( var i = 0; i < 200 ; i += 1 ){
+        x_n1 = r * x[x.length-1] * ( 1 - x[x.length-1] );
+        x_n1 = Math.max(x_n1, 0);
+        x.push(x_n1);
+    }
+    return x;
+}
+
+var chaos = make_chaos(r);
+var points = [];
+for ( var i = 0; i < chaos.length; i += 1 ){
+    points.push([i, chaos[i]]);
+}
+
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(draw_chaos);
+
+function draw_chaos() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+      data.addColumn('number', 'Chaosy stuff');
+      data.addRows(points);
+      var chart = new google.visualization.LineChart(document.getElementById(chart_id));
+      chart.draw(data, {});
+    }
+    
+}
+
+make_graph("chart_div1", 3.6)
+make_graph("chart_div2", 3.7)
+make_graph("chart_div3", 3.8)
+make_graph("chart_div4", 3.9)
+make_graph("chart_div5", 4.0)
+
+
+</SCRIPT>
+

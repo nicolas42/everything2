@@ -1,0 +1,342 @@
+\documentclass[20pt, a4paper]{article}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{parskip} % http://ctan.org/pkg/parskip
+\usepackage[utf8]{inputenc}
+
+\title{Math}
+\author{Nick }
+\date{November 2020}
+
+\begin{document}
+
+\maketitle
+
+\section{Maxwell's Equation(s)}
+
+
+How to read this
+
+$e_1$ corresponds to the unit vector pointing in the x direction $\vec i$. $e_2$ corresponds to the unit vector pointing in the y direction $\vec j$, and so on.
+
+$d_1$ is shorthand for the derivative operator $\frac{d}{de_1}$ which is the same as $\frac{d}{dx}$
+
+$e_{23}$ is shorthand for $e_2e_3$
+
+$i$ is defined as the trivector $e_{123}
+
+We define the derivative 
+$$ \nabla = (e_1d_1 + e_2d_2 + e_3d_3) $$
+Multiplying by it on the left will give a sum of the divergence and curl.  The curl will be expressed as a multivector.
+
+
+Applying $\nabla$ in geometric calculus is equivalent to applying the div and curl.  So you'll get back a sum of the div and curl but the curl will use bivectors.  This can be demonstrated by just multiplying out the following example.
+
+$$ \left( e_1d_1 +e_2d_2 +e_3d_3 \right) \left(a_1e_1 + a_2e_2 + a_3e_3 \right) $$
+
+
+
+$ \vec E, \vec B, \vec J$ are regular vectors that represent the electric field the magnetic field, and the current density (current per unit area).
+
+
+
+
+
+Maxwell's Equations using curl and divergence operators
+
+$$\nabla \cdot \vec E = \rho / \epsilon_0; \qquad \nabla \cdot \vec B = 0 $$
+$$ \nabla \times \vec B - \frac {1}{c^2} d_t \vec E = \mu_0 \vec J ; \qquad 
+ \nabla \times \vec E + d_t \vec B = 0 $$
+
+
+Maxwell's Equations in Geometric Calculus
+
+$$
+\left( \frac{ d_t }{c} + \nabla \right) 
+\left(\vec E + ic \vec B\right)
+= \frac{\rho}{\epsilon_0} -c\mu_0 \vec J
+$$
+
+or fully expanded
+
+$$ 
+\left( \frac{ d_t }{c}  + e_1d_1 +e_2d_2 +e_3d_3 \right)
+\left(E_1e_1 +E_2e_2 +E_3e_3 + c\left(B_1e_{23} +B_2e_{31} +b_3e_{12} \right) \right)
+= \frac{\rho}{\epsilon_0} -c\mu_0\left(J_1e_1 + J_2e_2 + J_3e_3\right)
+$$
+
+Let's try to get the regular equations out of this one :)
+
+Let's discuss the different parts.
+
+
+The only way to get a scalar out of the LHS is by dotting the derivative with the electric field.  
+ 
+$$  \left( e_1d_1 +e_2d_2 +e_3d_3 \right) \cdot \left(E_1e_1 +E_2e_2 +E_3e_3 \right) $$
+
+The $e_xe_x$ terms cancel out.  This gives the first equation.  
+
+$$ d_1E_1 + d_2E_2 + d_3E_3 = \frac{\rho}{\epsilon_0} $$
+
+Dotting the derivative with the magnetic field term will give a trivector.  There is no trivector on the right so this must equal zero.
+
+$$ c(d_1B_1 + d_2B_2 + d_3B_3)e_{123} = 0 $$
+
+Now there's the curls and the time derivative.  Woo.  Let's try the curl of the electric field first. This is the other parts of the product that we ignored earlier.
+
+$$(d_1E_2 - d_2E_1)e_{12} + (d2E_3 -d_3E_2)e_{23} + (d_3E_1 - d_1E_3)e_{31}$$
+
+Notice the $e_{31}$ term has been reversed in order so that it corresponds to the positive $e_2$ axis.
+
+The time derivative of the magnetic field term
+
+$$ d_t B_1 e_{23} +d_t B_2 e_{31} +d_t B_3e_{12} $$
+
+Since there is no bivector on the right hand side these must sum to zero.
+
+$$(d_1E_2 - d_2E_1)e_{12} + (d2E_3 -d_3E_2)e_{23} + (d_3E_1 - d_1E_3)e_{31} + d_t B_1 e_{23} +d_t B_2 e_{31} +d_t B_3e_{12}  = 0 $$
+
+or 
+
+$$(d_1E_2 - d_2E_1 +d_t B_3)e_{12} + (d2E_3 -d_3E_2 + d_t B_1)e_{23} + (d_3E_1 - d_1E_3 +d_t B_2 )e_{31}  = 0 $$
+
+Phew.  Now the curl of the magnetic field and the time derivative of the electric field
+
+$$ (d_1 B_2 e_{131} + d_2 B_1 e_{223} ) 
++ (d_2 E_3 e_{212} + d_3 E_2 e_{331} )
++ (d_1 E_3 e_{112} + d_3 E_1 e_{323} )
+$$
+
+These terms have the opposite signs of the curl of the electric field and work out to be a regular vector.
+
+$$ (-d_1 B_2 + d_2 B_1 ) e_3
++ (- d_2 E_3 + d_3 E_2 ) e_1
++ (d_1 E_3 - d_3 E_1 ) e_2
+$$
+
+You know what else would be a regular vector? The time derivative of the electric field.
+
+$$ \frac{d_t}{c}(E_1e_1 + E_2e_2 + E_3e_3) $$
+
+These add 
+
+$$ (-d_1 B_2 + d_2 B_1 ) e_3
++ (- d_2 E_3 + d_3 E_2 ) e_1
++ (d_1 E_3 - d_3 E_1 ) e_2
++ \frac{d_t}{c}(E_1e_1 + E_2e_2 + E_3e_3)
+$$
+
+It equals the only vector on the right.
+
+$$ ( d_2 B_1 -d_1 B_2 + \frac{d_t}{c} E_3 ) e_3
++ (d_3 E_2 - d_2 E_3 + \frac{d_t}{c} E_1 ) e_1
++ (d_1 E_3 - d_3 E_1 + \frac{d_t}{c} E_2 ) e_2
+
+= -c\mu_0(J_1 e_1 + J_2 e_2 + J_3 e_3 )
+$$
+
+Booyakasha.
+
+
+\section{Vector Chain Rule}
+
+$$ h(t) = f(\vec g(t)) $$
+
+$$ (x,y,z) = g(t) $$
+
+$$ h'(t) = \nabla \vec f(\vec g(t)) \cdot \vec g'(t) $$
+
+\section{Directional Derivative}
+
+The directional derivative of the function f at position $\vec a$ in direction $\vec v$.
+
+$$ \nabla_{\vec v} f(\vec a) := \lim_{h \to 0} \frac{ f(\vec a + h \vec v ) - f(\vec a ) } {h} $$
+
+Unlike the scalar derivative, the directional derivative will double if the length of $\vec v$ doubles.
+
+\section{Lagrange Error}
+
+
+Define the lagrange error as the difference between a given function and its taylor series approximation of degree N centered at x=a.
+
+$$E(x):=f(x)-P_{n,a}(x)$$
+
+Because P is an nth degree polynomial the (n+1)th derivative of the error reduces the taylor series to zero.
+
+$$E^{(n+1)}(x)=f^{(n+1)}(x)$$
+
+If this can be bounded
+
+$$|E^{(n+1)}(x)|=|f^{(n+1)}(x)| \leq M$$
+
+then the error can be bounded like this.
+
+$$
+|E(x)|\leq \frac{M(x-a)^{(n+1)}}{(n+1)!}
+$$
+
+Proof
+
+$$|E^{(n+1)}(x)|=|f^{(n+1)}(x)| \leq M$$
+
+$$
+|\int E^{(n+1)}(x)dx| \leq \
+\int|E^{(n+1)}(x)|dx \leq \int M dx
+$$
+
+$$
+|E^{(n)}(x)| \leq Mx+c
+$$
+
+$$
+|E^{(n)}(a)|=0 \leq Ma+c
+$$
+
+The c which gives the smallest bound is $c=-Ma$
+
+$$
+|E^{(n)}(x)|\leq M(x-a)
+$$
+
+$$
+|E^{(n-1)}(x)|\leq \frac{M(x-a)^2}{2}
+$$
+
+Integrate until we get the original error function
+
+
+$$
+|E(x)|\leq \frac{M(x-a)^{(n+1)}}{(n+1)!}
+$$
+
+
+
+\section{Introduction}
+
+
+Trigonometry
+
+https://www.eeweb.com/tools/trigonometry-laws-and-identities-sheet/
+
+$$\sin(a+b)=\sin a \cos b + \cos a \sin b \\
+$$
+
+Chain Rule
+
+$$(f(g(x)))' = f'(g(x))\cdot g'(x)$$
+
+$$\frac{dy}{dt} = \frac{dy}{dx} \cdot \frac{dx}{dt}$$
+
+Parametric Derivatives
+
+To find the derivative of something with respect to x, take its derivative with respect to t and then divide it by the derivative of x with respect to t.
+
+$$y'(x) = \frac{y'(t)}{x'(t)},  \quad = \frac{dy}{dx} = \frac{dy}{dt} \frac{dt}{dx}
+ $$
+
+$$y''(x) = \frac{ (y'(t))' }{ x'(t) } = \frac{ y''(t) }{ x'(t) }$$
+
+Abstract Math for Exponentials
+
+Assume $$ \quad f(c)=f(a+b) = f(a)f(b) \quad \forall a,b \in \mathbb{R}  
+$$
+
+$$f(c) = f(a+b) \iff c = a + b $$
+
+$$ f(0) = f(0)f(0) => f(0) = 1 \ | \  f(0)=0 $$
+
+$$ f(0) = 0 = f(a)f(-a) => f(a) = 0 \quad \forall a \in R $$
+
+$$  f(0) = 1 = f(a)f(-a) => f(-a) = (f(a))^{-1} $$ 
+
+$$ f(a)=f(nb) = n f(b) $$
+
+Cross multiplication rule
+
+$$(x+a)(x+b) = x^2 + (a+b)x + ab \\
+$$
+
+Quadratic Equation Derivation
+
+\begin{equation}
+ax^2 + bx + c = \\ 0
+a ( x^2 + bx/a ) + c = 0 \\
+a ( x^2 + 2 bx/2a + (b/2a)^2  - (b/2a)^2  ) + c = 0\\
+a ( x^2 + 2 bx/2a + (b/2a)^2   ) - b^2/4a + c = 0\\
+a ( x + b/2a ) ^2 - b^2/4a + c = 0\\
+x = -b/2a \pm \sqrt{ b^2/4a^2 - c/a }
+\end{equation}
+
+Imaginary Numbers
+
+$$(ai + bj) ( ci + dj ) = (ac + bd) + (ad -bc) ij$$
+
+Geometric Algebra
+
+Orthogonal vectors anticommute
+
+x and y are unit vectors (0,1) and (1,0)
+
+$$(ax+by)(cx+dy) = (ac+bd) + (ad-bc)xy \\
+xx=1\\
+yx=-xy$$
+
+$$(xy)^2 = xyxy = -xyyx = -1$$
+
+A product of two orthogonal vectors is isomorphic to the imaginary number.
+
+Parabolic Arc
+
+$$x = (v \cos\theta)t \\
+y = (v \sin\theta)t + g t^2 / 2 \\
+
+$$
+
+$$y = \frac {x \sin\theta } {\cos\theta } + \frac{g}{2}\bigg(\frac{x}{v\cos\theta}\bigg)^2 \\ 
+
+y = x \tan\theta + \frac{gx^2}{2v^2}(1+\tan^2\theta)$$
+
+which is quadratic in x and in $\tan\theta$ .
+
+$$\frac{g}{2v^2}(1+\tan^2\theta)x^2 + (\tan\theta) x - y = 0$$
+
+$$\bigg(\frac{gx^2}{2v^2}\bigg) \tan^2\theta + (x)\tan\theta + \bigg(\frac{gx^2}{2v^2} -y \bigg) = 0$$
+
+The angle of elevation to reach a position x,y with velocity v and gravitational acceleration g
+
+$$\tan\theta = \frac{-x \pm \sqrt{x^2 - 4\alpha(\alpha-y)} }{2\alpha} , \quad \alpha = \frac{gx^2}{2v^2}$$
+
+Which angle maximizes the horizontal distance?
+
+A 45 degree angle maximizes the distance of a projectile.  
+
+$$\alpha(1+\tan^2\theta)x^2 + \tan(\theta) x -y = 0,\quad \alpha = \frac{g}{2u^2}$$
+
+$$x = \frac{ -\tan\theta \pm \sqrt{\tan^2\theta - 4\alpha(1+\tan^2\theta)y} } {2\alpha( 1+\tan^2\theta )}$$
+
+If $y=0, \alpha=-1$ then
+
+$$x = \frac{ \tan\theta \mp \sqrt{\tan^2\theta} } { 2(1+\tan^2\theta )} = 0, \frac{ \tan\theta } { (1+\tan^2\theta) }$$
+
+Take $$ x=\frac{z}{1+z^2} \\$$
+
+$$ \frac{dx}{dz}=\frac{1-z^2}{(1+z^2)^2}=0 => z=-1,1 => \theta = 45 $$ degrees
+
+$$\frac{dx}{dz}=\frac{1-z^2}{(1+z^2)^2}$$
+
+The distances is optimal when the rate of change
+Let $z=\tan\theta; dz = \sec^2\theta  d\theta$.  Take the non-zero value and find where the rate of change is zero for optimisation.
+
+$$x=2\frac{z}{1+z^2}$$
+
+$$\frac{dx}{dz} = 2 \frac{ (1+z^2) - 2z(z) } { (1+z^2)^2 } = 2\frac{1-z^2}{1+z^2}$$
+
+$$\frac{dx}{d\theta} = 2\frac{1-\tan^2\theta}{1+\tan^2\theta} \sec^2\theta = 0
+$$
+
+$dx/d\theta = 0$ when $\tan\theta = \pm1$  when $\theta = 45 $ degrees
+
+A 45 degree angle maximizes the horizontal distance.
+
+
+
+\end{document}

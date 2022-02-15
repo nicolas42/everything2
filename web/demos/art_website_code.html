@@ -1,0 +1,66 @@
+<!doctype html>
+<head><link rel="stylesheet" href="reset.css"></head>
+<body><canvas id="canvas"></canvas></body>
+<script>
+
+// https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images
+// https://stackoverflow.com/questions/3971841/how-to-resize-images-proportionally-keeping-the-aspect-ratio
+
+function resize_to_fit(srcWidth, srcHeight, maxWidth, maxHeight) {
+    var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+    return { width: srcWidth*ratio, height: srcHeight*ratio };
+}
+
+
+function draw_image(canvas, img)
+{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    document.body.style.overflow = 'hidden'; // hide scroll bars
+
+    ctx = canvas.getContext('2d');
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // resize and center
+    var scaler = Math.min(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+    img_size = { width: img.naturalWidth*scaler, height: img.naturalHeight*scaler };
+    offset_y = (canvas.height - img_size.height)/2;
+    offset_x = (canvas.width - img_size.width)/2;
+
+    ctx.drawImage(img, offset_x, offset_y, img_size.width, img_size.height);
+}
+
+
+
+var images = [ "art/09vg982y7cx61.jpg", "art/7m9i7ky8r9n71.jpg", "art/n0uvu60msu071.jpg", "art/0g70sx8i0np71.jpg", "art/7tct14o12fd71.jpg", "art/o25o7elis5w71.jpg", "art/0gi8sar8x6s71.jpg", "art/8y0h5a12vkt71.jpg", "art/o4mfja515bz61.jpg", "art/26nltuw2mob71.jpg", "art/8yz6bpbxpaj71.jpg", "art/pxh1eqtrep471.jpg", "art/2a1sv2hc38u71.jpg", "art/a7yey79k1l771.jpg", "art/s3mn4tdixuu01.jpg", "art/2bveaqeotxc71.jpg", "art/atn1kb23dt271.jpg", "art/s73j8uhyc6c51.jpg", "art/2o7hh3qs71571.jpg", "art/c0pktgp5kyb71.jpg", "art/sf7b4wezscm71.jpg", "art/2ua756hpbol71.jpg", "art/cf5hqw4lkhu71.jpg", "art/swf3yzc0g1q71.jpg", "art/2vt8wq04s9q71.jpg", "art/f2ao5nvwn5o71.jpg", "art/swioo9eqgan61.jpg", "art/32jletmw69c71.jpg", "art/g6m6ttvglmf71.jpg", "art/u4rb76qp1up71.jpg", "art/3fwlnxd8phv71.jpg", "art/gfcbng8f4i671.jpg", "art/uj8xhiy37a971.jpg", "art/3sxt8y7luhs71.jpg", "art/gq6czx7rvht71.jpg", "art/v5ev2x1auir71.jpg", "art/45z1bs0a5bo71.jpg", "art/ivbd5kv1qrw71.jpg", "art/vny0iyfh1mw71.jpg", "art/49qy6h8ayfu71.jpg", "art/j2llv1h638k61.jpg", "art/x686pzwxm9171.jpg", "art/4gm81thv3om71.jpg", "art/j5ruv6tc56w71.jpg", "art/xd7or54ouyb71.jpg", "art/6pq59qtnnsw61.jpg", "art/ja1eerxkc9351.jpg", "art/xr36wbpvyss71.jpg", "art/6pw4kvimd1e71.jpg", "art/jpq39wykwxp71.jpg", "art/xsoa766zyfw71.jpg", "art/7kbd4cvprq071.jpg", "art/jzs8n1r7bgo71.jpg", "art/7lb72gptsfp71.jpg", "art/m8lfn2xsom871.jpg" ];
+
+canvas = document.getElementById('canvas');
+var img = new Image();
+
+// load events fire when the src of an html image element is set or changed.
+img.addEventListener('load', function(){ draw_image(canvas, img); } , false);
+
+
+img.src = images[0];
+i = 0;
+canvas.addEventListener("mousedown", function(event){
+    img.src = images[++i];
+})
+
+// load next image on any event. load previous image on left key down
+window.addEventListener("keydown", function(event){
+    if ( event.key == "ArrowLeft" ) { 
+        i = i-1;
+        if (i<0){i=0}
+    }
+    else {
+        i=i+1;
+        if ( i > images.length-1 ) { i = images.length-1; }
+    }
+    img.src = images[i]; 
+})
+
+</script>
+
+

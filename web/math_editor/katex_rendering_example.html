@@ -1,0 +1,79 @@
+
+<!DOCTYPE html><!-- KaTeX requires the use of the HTML5 doctype. Without it, KaTeX may not render properly -->
+<HTML>
+<HEAD>
+<LINK rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<SCRIPT defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></SCRIPT>
+<SCRIPT defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></SCRIPT>
+<STYLE>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+        width: 100%;
+        height: 100%;
+        /* background-color: black; */
+    }
+    
+    div {
+        width: 800px;
+        height: 100%;
+        margin: auto;
+        /* background-color: red; */
+    }
+    
+    h1,h2,h3,h4,h5,p { 
+        background-color: white;
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-weight: 400;
+        line-height: 2em;
+        padding: 10px;
+        /* margin: 10px; */
+        /* border: 1px solid grey;  */
+    }
+</STYLE>    
+<SCRIPT>
+
+// set up katex
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+    // customised options
+    // • auto-render specific keys, e.g.:
+    delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false},
+        {left: '\\[', right: '\\]', display: true}
+    ],
+    // • rendering keys, e.g.:
+    throwOnError : false
+    });
+});
+
+// make the height at least the window height
+window.addEventListener('load', function(event){
+    console.log('woo')
+    document.body.style.height = window.innerHeight + 'px'
+});
+
+</SCRIPT></HEAD><BODY><DIV>
+
+<!-- Actual content -->
+
+<h1>Lorem ipsum dolor</h1>
+
+<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+<p>
+$$ c = \pm\sqrt{a^2 + b^2}   $$
+$$ (\frac 1 c \frac d {dt} + \vec \nabla ) (\vec E + ic \vec B ) = \sqrt \frac \mu \epsilon_0  ( cp - \vec J )   $$
+$$ V_l = V_p \sqrt 3 \angle{-30}    $$
+$$ V_l = V_p \sqrt 3 \angle {-30}    $$
+$$ (\frac 1 c \frac d {dt} + \frac d {dx} \hat{x} + \frac d {dy} \hat y + \frac d {dz} \hat z ) (\vec E + ic \vec B ) = \sqrt \frac \mu \epsilon_0  ( cp - \vec J )   $$
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
+$$ \vec a = \vec a_{|| b}  + \vec a_{\perp b}    $$
+$$  = ( \vec a \hat b  ) \hat b = ( \vec a \cdot \hat b)\hat b + (\vec a \wedge \hat b  ) \hat b    $$
+$$  \vec a \hat b \hat c    $$
+</p> 
+
+</DIV></BODY></HTML>

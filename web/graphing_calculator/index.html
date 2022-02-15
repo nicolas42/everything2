@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<BODY><CANVAS></CANVAS></BODY>
+<SCRIPT>
+
+// x_n+1 = rx_n(1-x_n)
+function make_chaos(r)
+{
+    var x = [0.02];
+
+    for ( var i = 0; i < 2000 ; i += 1 ){
+        x_n1 = r * x[x.length-1] * ( 1 - x[x.length-1] );
+        x_n1 = Math.max(x_n1, 0);
+        x.push(x_n1);
+    }
+    return x;
+}
+
+
+let canvas = document.querySelector('canvas')
+canvas.height = 1000;
+canvas.width = 1400;
+
+var context = canvas.getContext("2d");
+context.fillStyle = "#000055";
+// context.fillRect(0, 0, a.w, a.h);
+
+
+var y_points = make_chaos(3.7);
+let dx = 5;
+var x = 0;
+var y = 0;
+
+context.translate(0.5, 0.5);
+context.lineWidth = .5;
+for ( var i = 0; i < y_points.length-1; i += 1 ){
+    y = canvas.height - 10 - (canvas.height * y_points[i]);
+    context.moveTo(x, y);
+    x += dx;
+    y = canvas.height - 10 - (canvas.height * y_points[i+1]);
+    context.lineTo(x,y);
+    context.stroke();
+
+}
+
+
+
+
+
+// foreach y y_points [
+// 	    append rule as-pair x sz/y - 10 - (sz/y * y)
+// 	    x: x + 3
+// 	]
+
+</SCRIPT>

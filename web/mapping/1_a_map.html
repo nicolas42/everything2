@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://js.arcgis.com/4.13/"></script>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
+
+</head>
+<body>
+<script>
+
+  
+var latitude = -41.5, longitude = 173.85, zoom = 15;
+var map;
+var mapview;
+
+require(["esri/Map", "esri/views/MapView"], function(Map,MapView) {
+
+    map = new Map({ basemap:"satellite" })
+    
+    mapview = new MapView({
+      container: "map_id", 
+      map: map, 
+      zoom: zoom,
+      center: [longitude, latitude]
+    });
+  }
+);
+
+</script>
+
+<div id='map_id' style='width:1000px; height:1000px'>map goes here</div>
+
+
+
+
+
+</body>
+</html>
+

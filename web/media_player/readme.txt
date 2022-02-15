@@ -1,0 +1,1 @@
+BUG: filenames with # characters in the name don't play right now
